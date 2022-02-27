@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../lib/UserContext";
+import { UserContext } from "../utils/UserContext";
 
 export default function DiscordLanding(req, res) {
 
@@ -43,12 +43,6 @@ export default function DiscordLanding(req, res) {
 
   useEffect(handleTok, [code]);
 
-  useEffect(async () => {
-    const userMetadata = JSON.parse(window.localStorage.getItem('userMetadata'));
-    user = userMetadata;
-    setUser(user);
-  }, [])
-
   async function handleClaim() {
 
     if (!verified) {
@@ -56,7 +50,7 @@ export default function DiscordLanding(req, res) {
     }
 
     const tokenId = 0;
-    const contractAddress = '';
+    const contractAddress = '0x47a2f25ad83Efa1BaA376D062284e777dD223463';
 
     try {
       var res = await fetch('/api/mint', {
