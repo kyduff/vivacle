@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 
-const { abi } = require("../lib/abi.json");
+const { abi } = require("../../lib/abi.json");
 
 export default async function Mint(req, res) {
   try {
