@@ -20,6 +20,8 @@ import {
   import { MoonIcon, SunIcon } from '@chakra-ui/icons';
   import { ConnectWalletButton } from "./ConnectWalletButton"
 import { DarkModeSwitch } from './DarkModeSwitch';
+import { useContext } from 'react';
+import { UserContext } from '../utils/UserContext';
   
   const Links = [{label: 'Explore', href: '/explore'}, {label: 'My Accolades', href: '/accolades'}];
   
@@ -38,6 +40,7 @@ import { DarkModeSwitch } from './DarkModeSwitch';
   );
   
   export const Nav = () => {
+    const {user, setUser} = useContext(UserContext)
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
       <>
@@ -55,9 +58,9 @@ import { DarkModeSwitch } from './DarkModeSwitch';
                 as={'nav'}
                 spacing={4}
                 display={{ base: 'none', md: 'flex' }}>
-                {Links.map((link) => (
-                  <NavLink key={link.label} to={link.href}>{link.label}</NavLink>
-                ))}
+                  <NavLink key='Explore' to='/explore'>Explore</NavLink>
+                  <NavLink key='Accolades' to={user.address? `/accolades/${user.address}` : '/accolades'}>My Trophy Case</NavLink>
+              
               </HStack>
             </HStack>
   
