@@ -1,15 +1,6 @@
 import Head from 'next/head'
 import {
-  Link as ChakraLink,
   Text,
-  Tabs,
-  TabList,
-  TabPanels,
-  TabPanel,
-  Tab,
-  SimpleGrid,
-  Wrap,
-  WrapItem,
   Heading,
   CheckboxGroup,
   Checkbox,
@@ -23,9 +14,6 @@ const { getAllContractAccolades } = require("../lib/getaccs.js");
 import { Container } from '../components/Container'
 import { Main } from '../components/Main'
 import { Footer } from '../components/Footer'
-import { IntegrationCard } from '../components/IntegrationCard'
-import { AccoladeCard } from '../components/AccoladeCard'
-import { Header } from '../components/Header'
 import { useRouter } from 'next/router'
 
 interface TabData {

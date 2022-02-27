@@ -1,8 +1,6 @@
-import Image from 'next/image';
 import {
   Box,
   Center,
-  Heading,
   Text,
   Stack,
   Avatar,
@@ -17,10 +15,6 @@ import {
   ModalFooter,
   useDisclosure,
 } from '@chakra-ui/react';
-
-import NextLink from 'next/link'
-
-
 export interface IntegrationProps {
   companyName: string
   logoUrl: string

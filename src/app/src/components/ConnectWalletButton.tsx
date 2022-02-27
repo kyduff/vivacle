@@ -1,6 +1,5 @@
-import {Button, Box, Text, Center, Image } from "@chakra-ui/react"
-import {ethers} from 'ethers';
-import React, { useState, useContext } from "react";
+import {Button, Center, Image } from "@chakra-ui/react"
+import React, { useContext } from "react";
 import { getAddress } from "../utils/metamask";
 import { UserContext } from "../utils/UserContext";
 

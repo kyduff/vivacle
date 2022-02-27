@@ -1,13 +1,8 @@
 import Head from 'next/head'
-import {
-  Link as ChakraLink,
-  Text,
-} from '@chakra-ui/react'
-import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons'
+import { Text } from '@chakra-ui/react'
 
 import { Hero } from '../components/Hero'
 import { Container } from '../components/Container'
-import { Main } from '../components/Main'
 import { Footer } from '../components/Footer'
 
 const Index = () => (
