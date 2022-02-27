@@ -109,7 +109,6 @@ export default function DiscordLanding() {
         bg={isDisabled ? 'blue.400': 'green.400'}
         color={'white'}
         m={'em !important'}
-        // w="full"
         _hover={{
           bg: 'blue.500',
         }}
@@ -124,7 +123,6 @@ export default function DiscordLanding() {
         bg={'blue.400'}
         color={'white'}
         mt={'2em !important'}
-        // w="full"
         _hover={{
           bg: 'blue.500',
         }}

@@ -42,7 +42,6 @@ export const IntegrationCard: React.FC<IntegrationProps> = ({companyName, logoUr
         bg={useColorModeValue('white', 'gray.900')}
         boxShadow={'2xl'}
         rounded={'md'}
-        // p={6}
         overflow={'hidden'}
         onClick={onOpen}>
         <Box
