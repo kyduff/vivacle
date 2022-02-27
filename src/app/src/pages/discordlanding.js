@@ -56,18 +56,22 @@ export default function DiscordLanding(req, res) {
 
     const tokenId = 0;
     const contractAddress = '0x47a2f25ad83Efa1BaA376D062284e777dD223463';
+   
 
     console.log(user)
+    const body = JSON.stringify({ address: user.address, contractAddress, tokenId });
+    console.log(body);
     try {
       var res = await fetch('/api/mint', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ address, contractAddress, tokenId })
+        body,
       })
     } catch (error) {
       console.error(error);
+      return;
     }
 
     if (res.status == 200) {
