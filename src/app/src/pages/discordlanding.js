@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../lib/UserContext";
+import { UserContext } from "../utils/UserContext";
 
 export default function DiscordLanding(req, res) {
 
