@@ -116,7 +116,7 @@ function UserProfileEdit(): JSX.Element {
             <CheckboxGroup colorScheme='green' defaultValue={['naruto', 'kakashi']}>
             <VStack spacing={[1, 5]} py={12}>
             {tokens.length ? tokens.map((value, index: number) => (
-              <Checkbox value={'pk_' + index} id={index} key={index}>{value.name}</Checkbox>
+              <Checkbox value={'pk_' + index.toString()} id={index.toString()} key={index.toString()}>{value.name}</Checkbox>
             )): <p>Loading...</p>}
             </VStack>
             </CheckboxGroup>
