@@ -13,17 +13,24 @@ export async function getAccoladesByContract(address, contract) {
 
   const numTokens = await contract.totalTokenIdCount();
 
+  const addrs = [];
+  const ids = [];
+
+  for (let i = 0; i < numTokens; i++) {
+    addrs.push(address);
+    ids.push(i);
+  }
+
+  const balances = await contract.balanceOfBatch(addrs, ids);
+  console.log(balances);
+  const uri = await contract.uri(0);
+  console.log(uri);
+
   let tokens = [];
 
   for (let i = 0; i < numTokens; i++) {
-    // get token balance
-    const token = await contract.balanceOf(address, i);
-    const uri = await contract.uri(i);
 
-    console.log(`token: ${token}`);
-    console.log(`uri: ${uri}`);
-
-    if (Number(token)) {
+    if (Number(balances[i]) > 0) {
       // get metadata from token uri
       const url = replaceId(uri, i);
       console.log(uri);
