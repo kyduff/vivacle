@@ -127,7 +127,8 @@ const defaultData: IntegrationProps[] = [
     "categories": ["all", "Events"],
     "logoUrl": "https://oxfordhack22.co.uk/logo512.png",
     "description": "The official Oxford student Hackathon, where over 300 people gather every year to collaborate, innovate, learn and experiment while creating a project from scratch in 24 hours.",
-    "bgColor": "gray.100"
+    "bgColor": "gray.100",
+    "secondaryHref": "https://discord.com/api/oauth2/authorize?client_id=947364728399859732&redirect_uri=https%3A%2F%2Foxhack22.vercel.app%2Fdiscordlanding&response_type=code&scope=guilds"
   },
   {
     "companyName": "Spotify",
