@@ -13,6 +13,8 @@ import { AccoladeCard } from '../../components/AccoladeCard'
 import { GetServerSideProps } from 'next'
 import { ethers } from 'ethers'
 
+import { getAccoladesByContract } from "../../lib/getaccs"
+
 interface AccoladeAPIResponse {
   [key: string]: AccoladeAPIDatum[]
 }
@@ -59,15 +61,13 @@ export default Accolades
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
   // return {props: {accolades :{ "spotify": [ { "name": "Lex Fridman Podcast Superfan — 2021", "image_url": "https://raw.githubusercontent.com/mbiss10/oxhack22/main/spotify_achievement_images/lex.png", "description": "The Lex Fridman Podcast was your most listened-to podcast this year!" }, { "name": "Tastemaker", "image_url": "https://raw.githubusercontent.com/mbiss10/oxhack22/main/spotify_achievement_images/taste.png", "description": "You created a playlist that amassed over 20 followers. You must have good taste!" }, { "name": "Eclectic Ears", "image_url": "https://raw.githubusercontent.com/mbiss10/oxhack22/main/spotify_achievement_images/ears.png", "description": "You listened to songs from 15 different genres this year!" } ], "oxhack": [], "redcross": [], "strava": [] }}}
-
-  const { getAccoladesByContract } = require("../../lib/getaccs");
   const { signets } = require('../../lib/signets.json');
 
   const provider = new ethers.providers.JsonRpcProvider(process.env.RINKEBY_URL);
 
   const { abi } = require("../../lib/abi.json");
 
-  const address = context.query.accolades?.toString().toLowerCase();
+  const address = context.query.accolades!.toString().toLowerCase();
   const accolades = new Object();
 
   for (let contractAddr in signets) {

@@ -4,12 +4,21 @@ import {
   Heading,
   CheckboxGroup,
   Checkbox,
-  VStack
-} from '@chakra-ui/react'
+  VStack,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Stack,
+  useColorModeValue,
+  HStack,
+  Avatar,
+  Center,
+} from '@chakra-ui/react';
+import { CheckCircleIcon } from '@chakra-ui/icons';
+import React, { FormEvent, useEffect, useState } from 'react';
 
-import React, { useEffect, useState } from 'react';
-
-const { getAllContractAccolades } = require("../lib/getaccs.js");
+import { getAllContractAccolades } from "../lib/getaccs"
 
 import { Container } from '../components/Container'
 import { Main } from '../components/Main'
@@ -39,25 +48,9 @@ const Accolades = () => (
 
 export default Accolades
 
-import {
-    Button,
-    Flex,
-    FormControl,
-    FormLabel,
-    Input,
-    Stack,
-    useColorModeValue,
-    HStack,
-    Avatar,
-    AvatarBadge,
-    IconButton,
-    Center,
-  } from '@chakra-ui/react';
-  import { CheckCircleIcon, CheckIcon, SmallCloseIcon } from '@chakra-ui/icons';
-
 function UserProfileEdit(): JSX.Element {
     const router = useRouter()
-    const [tokens, setTokens] = useState([]);
+    const [tokens, setTokens] = useState<any[]>([]);
 
     useEffect(()=>{
       getAllContractAccolades("0x150fB911DA54B7841c841B0B939D9006C6feDC15").then((response) => {
@@ -65,11 +58,14 @@ function UserProfileEdit(): JSX.Element {
       })
     }, [])
 
-    function onSubmit(event) {
+    function onSubmit(event: FormEvent) {
+      console.log(event)
       event.preventDefault();
-      Object.keys(event.target.elements).map(function(key, index) {
-        if (event.target.elements[index].type === "checkbox" && event.target.elements[index].checked) {
-          console.log(event.target.elements[index].value)
+      const elements = (event.target as HTMLFormElement).elements as HTMLFormControlsCollection
+      Array.from(elements).map(function(key, index) {
+        const element = (elements[index] as HTMLInputElement)
+        if (element.type === "checkbox" && element.checked) {
+          console.log(element.value)
         }
       });
     }

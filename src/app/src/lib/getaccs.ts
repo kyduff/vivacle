@@ -1,14 +1,12 @@
-import { ethers } from "ethers";
+import { Contract, ethers } from "ethers";
 const { abi } = require("./abi.json");
 
-function replaceId(str, id) {
+function replaceId(str: string, id: number) {
   const idHex = id.toString(16).padStart(64, '0');
   return str.replace(/\{id\}/g, idHex);
 }
 
-
-export async function getAccoladesByContract(address, contract) {
-
+export async function getAccoladesByContract(address: string, contract: Contract) {
   console.log(address)
 
   const numTokens = await contract.totalTokenIdCount();
@@ -49,7 +47,7 @@ export async function getAccoladesByContract(address, contract) {
   return tokens;
 }
 
-export async function getAllContractAccolades(contractAddress) {
+export async function getAllContractAccolades(contractAddress: string) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner();
   const contract = new ethers.Contract(contractAddress, abi, signer);
@@ -61,18 +59,16 @@ export async function getAllContractAccolades(contractAddress) {
 
     const url = replaceId(uri, i);
     try {
-      var res = await fetch(url, {
+      const res = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       });
+      tokens.push(await res.json());
     } catch (error) {
       console.log(error);
     }
-
-    tokens.push(await res.json());
   }
-
   return tokens;
 }
