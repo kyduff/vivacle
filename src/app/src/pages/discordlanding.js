@@ -12,6 +12,8 @@ export default function DiscordLanding(req, res) {
   const router = useRouter();
   const { code } = router.query;
 
+  const [isDisabled, setDisabled] = useState(false)
+
   const { user, setUser } = useContext(UserContext);
 
   const [verified, setVerified] = useState(false);
@@ -75,7 +77,7 @@ export default function DiscordLanding(req, res) {
     }
 
     if (res.status == 200) {
-      // take user to explore page
+      setDisabled(true)
     } else {
       console.error('error minting token');
     }
@@ -101,7 +103,7 @@ export default function DiscordLanding(req, res) {
             layout={'fill'}
           />
       <Button
-        bg={'green.400'}
+        bg={isDisabled ? 'blue.400': 'green.400'}
         color={'white'}
         m={'em !important'}
         // w="full"
@@ -109,9 +111,25 @@ export default function DiscordLanding(req, res) {
           bg: 'blue.500',
         }}
         onClick={handleClaim}
+        isDisabled={isDisabled}
         >
-        Claim OxHack NFT
+        {isDisabled ? 'Congrats, your NFT is being claimed!': 'Claim OxHack NFT'}
       </Button>
+      {isDisabled &&
+      <Button
+        as={'a'}
+        bg={'blue.400'}
+        color={'white'}
+        mt={'2em !important'}
+        // w="full"
+        _hover={{
+          bg: 'blue.500',
+        }}
+        href="/explore"
+        >
+        Return to the Explore page
+      </Button>
+      }
       </VStack>
     </Main>
     </Container>
