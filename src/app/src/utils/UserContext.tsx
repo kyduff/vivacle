@@ -1,11 +1,23 @@
-import { createContext, useMemo, useState, useEffect } from "react";
+import { createContext, useMemo, useState, useEffect, SetStateAction, Dispatch } from "react";
 import { getAddress } from "./metamask";
 
-export const UserContext = createContext({});
+interface User {
+  address: string | undefined
+}
+
+interface UserContext {
+  user: User;
+  setUser: (c: User) => void;
+}
+
+export const UserContext = createContext<UserContext>({
+  user: {address: ''}, 
+  setUser: () => {}
+});
 
 export const UserContextProvider: React.FC = ({ children }) => {
 
-  const [user, setUser] = useState<{address: string | undefined}>({address: ''});
+  const [user, setUser] = useState<User>({address: ''});
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
   useEffect(() => {
