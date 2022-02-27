@@ -43,12 +43,6 @@ export default function DiscordLanding(req, res) {
 
   useEffect(handleTok, [code]);
 
-  useEffect(async () => {
-    const userMetadata = JSON.parse(window.localStorage.getItem('userMetadata'));
-    user = userMetadata;
-    setUser(user);
-  }, [])
-
   async function handleClaim() {
 
     if (!verified) {
