@@ -50,7 +50,7 @@ export default function DiscordLanding(req, res) {
     }
 
     const tokenId = 0;
-    const contractAddress = '';
+    const contractAddress = '0x47a2f25ad83Efa1BaA376D062284e777dD223463';
 
     try {
       var res = await fetch('/api/mint', {
