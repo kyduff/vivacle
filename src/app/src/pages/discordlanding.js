@@ -64,7 +64,7 @@ export default function DiscordLanding(req, res) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ address, contractAddress, tokenId })
+        body: JSON.stringify({ address: user.address, contractAddress, tokenId })
       })
     } catch (error) {
       console.error(error);
