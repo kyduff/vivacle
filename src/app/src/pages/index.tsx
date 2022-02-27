@@ -46,7 +46,6 @@ const Index = () => (
     </Main> */}
 
     <Main>
-      <Text>Insert all our bios</Text>
     </Main>
 
     <Footer>
