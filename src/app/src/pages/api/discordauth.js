@@ -18,7 +18,7 @@ export default async function DiscordAuth(req, res) {
         client_secret: process.env.DISCORD_CLIENT_SECRET,
         code,
         grant_type: 'authorization_code',
-        redirect_uri: 'http://localhost:3000/discordlanding',
+        redirect_uri: 'https://oxhack22.vercel.app/discordlanding',
         scope: 'guilds',
       })
     })
