@@ -10,12 +10,12 @@ export default function TrophyCase({ accolades }) {
 
 export async function getServerSideProps(context) {
 
-  const { getAccoladesByContract } = require("../lib/getaccs");
-  const { signets } = require('../lib/signets.json');
+  const { getAccoladesByContract } = require("../../lib/getaccs");
+  const { signets } = require('../../lib/signets.json');
 
   const provider = new ethers.providers.JsonRpcProvider(process.env.RINKEBY_URL);
 
-  const { abi } = require("../lib/abi.json");
+  const { abi } = require("../../lib/abi.json");
 
   const address = context.query.address.toLowerCase();
   const accolades = new Object();
