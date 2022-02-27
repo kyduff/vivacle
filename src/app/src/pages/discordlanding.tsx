@@ -1,8 +1,7 @@
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../utils/UserContext";
-import { Container } from '../components/Container'
-import { Main } from '../components/Main'
+import { Container, Main } from '../components'
 import { VStack, Image, Button } from "@chakra-ui/react";
 import Head from 'next/head'
 

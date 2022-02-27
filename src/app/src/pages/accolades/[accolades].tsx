@@ -5,14 +5,10 @@ import {
   WrapItem,
   Heading
 } from '@chakra-ui/react'
-
-import { Container } from '../../components/Container'
-import { Main } from '../../components/Main'
-import { Footer } from '../../components/Footer'
-import { AccoladeCard } from '../../components/AccoladeCard'
 import { GetServerSideProps } from 'next'
 import { ethers } from 'ethers'
 
+import { Container, Main, Footer, AccoladeCard } from '../../components'
 import { getAccoladesByContract } from "../../lib/getaccs"
 import { signets } from '../../lib/signets.json'
 import { abi } from "../../lib/abi.json"

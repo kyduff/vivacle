@@ -20,9 +20,7 @@ import React, { FormEvent, useEffect, useState } from 'react';
 
 import { getAllContractAccolades } from "../lib/getaccs"
 
-import { Container } from '../components/Container'
-import { Main } from '../components/Main'
-import { Footer } from '../components/Footer'
+import { Container, Main, Footer } from '../components'
 import { useRouter } from 'next/router'
 import { AccoladeAPIDatum } from './accolades/[accolades]';
 

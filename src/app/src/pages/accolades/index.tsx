@@ -6,10 +6,7 @@ import {
   Heading
 } from '@chakra-ui/react'
 
-import { Container } from '../../components/Container'
-import { Main } from '../../components/Main'
-import { Footer } from '../../components/Footer'
-import { AccoladeCard } from '../../components/AccoladeCard'
+import { Container, Main, Footer, AccoladeCard } from '../../components'
 
 const Accolades = () => {
   return (

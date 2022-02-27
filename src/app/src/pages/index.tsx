@@ -1,9 +1,7 @@
 import Head from 'next/head'
 import { Text } from '@chakra-ui/react'
 
-import { Hero } from '../components/Hero'
-import { Container } from '../components/Container'
-import { Footer } from '../components/Footer'
+import { Container, Hero, Footer } from '../components'
 
 const Index = () => (
   <Container height="100vh">

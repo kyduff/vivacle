@@ -11,10 +11,7 @@ import {
   Heading
 } from '@chakra-ui/react'
 
-import { Container } from '../components/Container'
-import { Main } from '../components/Main'
-import { Footer } from '../components/Footer'
-import { IntegrationCard, IntegrationProps } from '../components/IntegrationCard'
+import { Container, Main, Footer, IntegrationCard, IntegrationProps } from '../components'
 
 interface TabData {
     label: string,
