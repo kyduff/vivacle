@@ -1,7 +1,6 @@
 import { ethers } from "ethers";
 import { NextApiRequest, NextApiResponse } from "next";
-
-const { abi } = require("../../lib/abi.json");
+import { abi } from "../../lib/abi.json";
 
 export default async function Mint(req: NextApiRequest, res: NextApiResponse) {
   try {

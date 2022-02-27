@@ -12,8 +12,6 @@ import { DarkModeSwitch } from './DarkModeSwitch';
 import { useContext } from 'react';
 import { UserContext } from '../utils/UserContext';
   
-const Links = [{label: 'Explore', href: '/explore'}, {label: 'My Accolades', href: '/accolades'}];
-
 const NavLink: React.FC<{to: string}> = ({ to, children }) => (
   <Link
     px={2}
@@ -29,7 +27,7 @@ const NavLink: React.FC<{to: string}> = ({ to, children }) => (
 );
 
 export const Nav = () => {
-  const {user, setUser} = useContext(UserContext)
+  const {user} = useContext(UserContext)
   return (
     <>
       <Box bg={useColorModeValue('gray.50', 'gray.900')} px={4}>
@@ -40,6 +38,7 @@ export const Nav = () => {
                     width={'48px'}
                     objectFit={'cover'}
                     src={'/favicon.ico'}
+                    alt={'logo'}
                   />  
             <HStack
               as={'nav'}

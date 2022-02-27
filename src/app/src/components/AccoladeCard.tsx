@@ -44,6 +44,7 @@ export const AccoladeCard: React.FC<AccoladeProps> = ({title, imageUrl, categori
             width={'100%'}
             src={imageUrl}
             layout={'fill'}
+            alt={'accolade image'}
           />
         </Box>
         <Stack>

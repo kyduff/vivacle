@@ -1,5 +1,5 @@
 import { Contract, ethers } from "ethers";
-const { abi } = require("./abi.json");
+import { abi } from "./abi.json";
 
 function replaceId(str: string, id: number) {
   const idHex = id.toString(16).padStart(64, '0');
@@ -24,7 +24,7 @@ export async function getAccoladesByContract(address: string, contract: Contract
   const uri = await contract.uri(0);
   console.log(uri);
 
-  let tokens = [];
+  const tokens = [];
 
   for (let i = 0; i < numTokens; i++) {
 
@@ -33,21 +33,18 @@ export async function getAccoladesByContract(address: string, contract: Contract
       const url = replaceId(uri, i);
       console.log(uri);
       try {
-
-        var res = await fetch(url, {
+        const res = await fetch(url, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
         })
 
+        tokens.push(await res.json());
       } catch (error) {
         console.log(error);
         return null;
       }
-
-      tokens.push(await res.json());
-
     }
   }
 
@@ -60,7 +57,7 @@ export async function getAllContractAccolades(contractAddress: string) {
   const contract = new ethers.Contract(contractAddress, abi, signer);
   const numTokens = await contract.totalTokenIdCount();
 
-  let tokens = [];
+  const tokens = [];
   for (let i = 0; i < numTokens; i++) {
     const uri = await contract.uri(i);
 
