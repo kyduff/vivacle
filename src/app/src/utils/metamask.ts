@@ -1,5 +1,7 @@
 import { ethers } from 'ethers';
 
+declare const window: any;
+
 export async function getAddress() {
   const provider = new ethers.providers.Web3Provider(window.ethereum, "rinkeby");
   // Check if MetaMask installed
