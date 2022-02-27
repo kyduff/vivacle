@@ -7,14 +7,14 @@ import { VStack, Image, Button } from "@chakra-ui/react";
 import Head from 'next/head'
 
 
-export default function DiscordLanding(req, res) {
+export default function DiscordLanding() {
 
   const router = useRouter();
   const { code } = router.query;
 
   const [isDisabled, setDisabled] = useState(false)
 
-  const { user, setUser } = useContext(UserContext);
+  const {user, setUser} = useContext(UserContext);
 
   const [verified, setVerified] = useState(false);
 
@@ -36,10 +36,10 @@ export default function DiscordLanding(req, res) {
         body: JSON.stringify({ code })
       });
 
-      const { verified } = await oauthResp.json();
+      const { oAuthVerified } = await oauthResp.json();
 
-      console.log(verified);
-      setVerified(verified);
+      console.log(oAuthVerified);
+      setVerified(oAuthVerified);
 
     } catch (error) {
       console.error(error);
@@ -48,7 +48,11 @@ export default function DiscordLanding(req, res) {
 
   }
 
-  useEffect(handleTok, [code]);
+  useEffect(() => {
+    (async () => {
+      await handleTok();
+    })();
+  }, [code]);
 
   async function handleClaim() {
 
@@ -100,7 +104,6 @@ export default function DiscordLanding(req, res) {
             src={
               'https://cdn.discordapp.com/attachments/945665299938697260/947382707309137980/OxHack.png'
             }
-            layout={'fill'}
           />
       <Button
         bg={isDisabled ? 'blue.400': 'green.400'}
