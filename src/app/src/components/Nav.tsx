@@ -63,7 +63,7 @@ import { DarkModeSwitch } from './DarkModeSwitch';
   
             <Flex alignItems={'center'}>
               <Stack direction={'row'} spacing={7}>
-                {/* <ConnectWalletButton /> */}
+                <ConnectWalletButton />
                 <DarkModeSwitch/>
   
                 {/* <Menu>

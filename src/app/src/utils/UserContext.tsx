@@ -5,7 +5,7 @@ export const UserContext = createContext({});
 
 export const UserContextProvider: React.FC = ({ children }) => {
 
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState<{address: string | undefined}>({address: ''});
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
   useEffect(() => {

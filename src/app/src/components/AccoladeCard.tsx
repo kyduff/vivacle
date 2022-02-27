@@ -30,7 +30,7 @@ export const AccoladeCard: React.FC = () => {
           pos={'relative'}>
           <Image
             objectFit={'cover'}
-            width={'100%'}
+            // width={'100%'}
             src={
               'https://www.cleveland.com/resizer/-b7j0Y6-FoZ3H4J65hw0Yld08S4=/arc-anglerfish-arc2-prod-advancelocal/public/VESWDMK7QZAMZAH2UIBW3CHRGU.jpg'
             }
