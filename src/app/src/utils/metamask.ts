@@ -1,7 +1,5 @@
 import { ethers } from 'ethers';
 
-declare const window: any;
-
 export async function getAddress() {
   // Check if MetaMask installed
   if (window.ethereum) {
