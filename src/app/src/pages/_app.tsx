@@ -3,12 +3,15 @@ import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../theme'
 import { AppProps } from 'next/app'
 import { Nav } from '../components/Nav'
+import { UserContextProvider } from '../utils/UserContext'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider resetCSS theme={theme}>
-      <Nav/>
-      <Component {...pageProps} />
+      <UserContextProvider>
+        <Nav/>
+        <Component {...pageProps} />
+      </UserContextProvider>
     </ChakraProvider>
   )
 }

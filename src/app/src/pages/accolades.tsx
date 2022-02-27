@@ -75,7 +75,7 @@ const Accolades = () => (
     <Main>
       {/* <Integrations/> */}
       <Wrap spacing={{ base: 5, lg: 8 }} justify='center'>
-          {[1,2,3,4].map( datum => <WrapItem><AccoladeCard /></WrapItem>)}
+          {[1,2,3,4].map( datum => <WrapItem key={datum} ><AccoladeCard /></WrapItem>)}
       </Wrap>
     </Main>
 

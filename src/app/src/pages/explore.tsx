@@ -65,6 +65,16 @@ function Integrations() {
         content:
           'Health'
       },
+      {
+        label: 'Events',
+        content:
+          'Events'
+      },
+      {
+        label: 'Media',
+        content:
+          'Media'
+      },
     ]
   
     // 3. Pass the props and chill!
@@ -97,6 +107,48 @@ erat, sed diam voluptua. At vero eos et accusam et justo duo dolores\
 et ea rebum.'
 
 const defaultData: IntegrationProps[] = [
+  {
+    companyName: 'Premier League',
+    categories: ['all', 'Events'],
+    logoUrl: 'https://s3.amazonaws.com/premierleague-static-files/premierleague/pl_icon.png',
+    description: LOREM_IPSUM,
+    bgColor: 'green.100'
+  },
+  {
+    companyName: 'NBA',
+    categories: ['all', 'Events'],
+    logoUrl: 'http://nbahoopsonline.com/Articles/2016-17/nbaaplogo.jpg',
+    description: LOREM_IPSUM,
+    bgColor: 'red.100'
+  },
+  {
+    companyName: 'OxHack2022',
+    categories: ['all', 'Events'],
+    logoUrl: 'https://oxfordhack22.co.uk/logo512.png', 
+    description: LOREM_IPSUM,
+    bgColor: 'gray.100'
+  },
+  {
+    companyName: 'Spotify',
+    categories: ['all', 'Media'],
+    logoUrl: 'https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-download-logo-30.png',
+    description: LOREM_IPSUM,
+    bgColor: 'green.100'
+  },
+  {
+    companyName: 'Netflix',
+    categories: ['all', 'Media'],
+    logoUrl: 'https://cdn.vox-cdn.com/thumbor/AwKSiDyDnwy_qoVdLPyoRPUPo00=/39x0:3111x2048/1400x1400/filters:focal(39x0:3111x2048):format(png)/cdn.vox-cdn.com/uploads/chorus_image/image/49901753/netflixlogo.0.0.png',
+    description: LOREM_IPSUM,
+    bgColor: 'red.100'
+  },
+  {
+    companyName: 'Audible',
+    categories: ['all', 'Media'],
+    logoUrl: 'https://pbs.twimg.com/profile_images/1098979859446095873/TbBByTY3_400x400.png',
+    description: LOREM_IPSUM,
+    bgColor: 'gray.100'
+  },
   {
     companyName: 'Duolingo',
     categories: ['all', 'Learning'],
