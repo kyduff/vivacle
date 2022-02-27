@@ -51,8 +51,7 @@ export const IntegrationCard: React.FC<IntegrationProps> = ({companyName, logoUr
           <Stack direction={'row'} spacing={4} align={'center'}>
             <Avatar
               src={logoUrl}
-              // @ts-ignore
-              alt={'Author'}
+              name={'logo'}
             />
             <Stack direction={'column'} spacing={0} fontSize={'sm'}>
               <Text fontSize={'xl'} fontWeight={600}>{companyName}</Text>

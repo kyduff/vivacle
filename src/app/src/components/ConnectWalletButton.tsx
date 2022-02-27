@@ -6,7 +6,6 @@ import { UserContext } from "../utils/UserContext";
 
 
 export const ConnectWalletButton: React.FC = () => {
-    //@ts-ignore
     const { user, setUser } = useContext(UserContext);
 
     // return <>

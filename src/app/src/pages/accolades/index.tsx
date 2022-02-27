@@ -22,14 +22,7 @@ import { Header } from '../../components/Header'
 import { GetServerSideProps } from 'next'
 import { ethers } from 'ethers'
 
-// interface TabData {
-//     label: string,
-//     content: string
-// }
-
-// @ts-ignore
-const Accolades = ({accolades}) => {
-  console.log(accolades)
+const Accolades = () => {
   return (
   <Container height="100vh">
     <Head>

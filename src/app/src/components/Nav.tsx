@@ -40,7 +40,6 @@ import { UserContext } from '../utils/UserContext';
   );
   
   export const Nav = () => {
-    // @ts-ignore
     const {user, setUser} = useContext(UserContext)
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
