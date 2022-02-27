@@ -9,7 +9,17 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 
-export const AccoladeCard: React.FC = () => {
+export interface AccoladeProps {
+  title: string
+  companyName: string
+  imageUrl: string
+  categories: string[]
+  description: string
+  companyLogoUrl: string
+}
+
+
+export const AccoladeCard: React.FC<AccoladeProps> = ({title, imageUrl, categories, description, companyName, companyLogoUrl }) => {
   return (
     <Center py={6}>
       <Box
@@ -22,18 +32,17 @@ export const AccoladeCard: React.FC = () => {
         p={6}
         overflow={'hidden'}>
         <Box
-          h={'210px'}
+          minH={'445px'}
           bg={'gray.100'}
           mt={-6}
           mx={-6}
-          mb={6}
+          mb={4}
           pos={'relative'}>
           <Image
             objectFit={'cover'}
-            // width={'100%'}
-            src={
-              'https://www.cleveland.com/resizer/-b7j0Y6-FoZ3H4J65hw0Yld08S4=/arc-anglerfish-arc2-prod-advancelocal/public/VESWDMK7QZAMZAH2UIBW3CHRGU.jpg'
-            }
+            height={'100%'}
+            width={'100%'}
+            src={imageUrl}
             layout={'fill'}
           />
         </Box>
@@ -44,26 +53,26 @@ export const AccoladeCard: React.FC = () => {
             fontWeight={800}
             fontSize={'sm'}
             letterSpacing={1.1}>
-            Media
+            {categories}
           </Text>
           <Heading
             color={useColorModeValue('gray.700', 'white')}
             fontSize={'2xl'}
             fontFamily={'body'}>
-            Kanye West
+            {title}
           </Heading>
           <Text color={'gray.500'}>
-            Top 5% of listeners
+            {description}
           </Text>
         </Stack>
         <Stack mt={6} direction={'row'} spacing={4} align={'center'}>
           <Avatar
-            src={'https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-download-logo-30.png'}
+            src={companyLogoUrl}
             // @ts-ignore
             alt={'Author'}
           />
           <Stack direction={'column'} spacing={0} fontSize={'sm'}>
-            <Text fontWeight={600}>Spotify - 0xa52j</Text>
+            <Text fontWeight={600}>{companyName} - 0xa52j</Text>
             <Text color={'gray.500'}>Issued on Feb 26, 2022</Text>
           </Stack>
         </Stack>
