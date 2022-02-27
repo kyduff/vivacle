@@ -2,20 +2,13 @@ import Head from 'next/head'
 import {
   Link as ChakraLink,
   Text,
-  Code,
-  List,
-  ListIcon,
-  ListItem,
 } from '@chakra-ui/react'
 import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons'
 
 import { Hero } from '../components/Hero'
 import { Container } from '../components/Container'
 import { Main } from '../components/Main'
-import { DarkModeSwitch } from '../components/DarkModeSwitch'
-import { CTA } from '../components/CTA'
 import { Footer } from '../components/Footer'
-import { Nav } from '../components/Nav'
 
 const Index = () => (
   <Container height="100vh">
@@ -51,6 +44,10 @@ const Index = () => (
         </ListItem>
       </List>
     </Main> */}
+
+    <Main>
+      <Text>Insert all our bios</Text>
+    </Main>
 
     <Footer>
       <Text>Courtesy of the best OxHack22 Team ❤️</Text>
