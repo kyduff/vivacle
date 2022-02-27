@@ -96,7 +96,7 @@ export const IntegrationCard: React.FC<IntegrationProps> = ({companyName, logoUr
             <Button variant='ghost' mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button as={'a'} colorScheme='blue' href={secondaryHref ? secondaryHref : '/authorise'}> Secondary Action</Button>
+            <Button as={'a'} colorScheme='blue' href={secondaryHref ? secondaryHref : '/authorise'}> Claim your Accolades</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
