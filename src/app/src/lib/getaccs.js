@@ -45,3 +45,28 @@ export async function getAccoladesByContract(address, contract) {
 
   return tokens;
 }
+
+export async function getAllContractAccolades(contract) {
+  const numTokens = await contract.totalTokenIdCount();
+
+  let tokens = [];
+  for (let i = 0; i < numTokens; i++) {
+    const uri = await contract.uri(i);
+
+    const url = replaceId(uri, i);
+    try {
+      var res = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    tokens.push(await res.json());
+  }
+
+  return tokens;
+}
