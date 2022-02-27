@@ -1,3 +1,6 @@
+import { ethers } from "ethers";
+const { abi } = require("./abi.json");
+
 function replaceId(str, id) {
   const idHex = id.toString(16).padStart(64, '0');
   return str.replace(/\{id\}/g, idHex);
@@ -46,7 +49,10 @@ export async function getAccoladesByContract(address, contract) {
   return tokens;
 }
 
-export async function getAllContractAccolades(contract) {
+export async function getAllContractAccolades(contractAddress) {
+  const provider = new ethers.providers.Web3Provider(window.ethereum)
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(contractAddress, abi, signer);
   const numTokens = await contract.totalTokenIdCount();
 
   let tokens = [];
