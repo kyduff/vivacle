@@ -22,6 +22,7 @@ export interface IntegrationProps {
   description: string
   bgColor: string
   secondaryHref?: string
+  secondaryName?: string
 }
 
 

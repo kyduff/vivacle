@@ -40,11 +40,15 @@ const Accolades = () => (
   </Container>
 )
 
-const signets = {
-    spotify: "0x150fB911DA54B7841c841B0B939D9006C6feDC15",
-    oxhack: "0x47a2f25ad83Efa1BaA376D062284e777dD223463",
-    redcross: "0xb9a749F903682127dE0b29BA02C10c847A6593b6",
-    strava: "0x75F60C7CEe414FE60bB96a12d930F3DC8E59eEf3",
+interface ObjectMap {
+    [name: string]: string
+}
+
+const signets: ObjectMap = {
+    "spotify": "0x150fB911DA54B7841c841B0B939D9006C6feDC15",
+    "oxhack": "0x47a2f25ad83Efa1BaA376D062284e777dD223463",
+    "redcross": "0xb9a749F903682127dE0b29BA02C10c847A6593b6",
+    "strava": "0x75F60C7CEe414FE60bB96a12d930F3DC8E59eEf3",
 }
 
 const brands = {
@@ -70,17 +74,18 @@ export default Accolades
 
 function UserProfileEdit(): JSX.Element {
     const router = useRouter()
-    const brand = router.query.brand;
+    const brand: string = router.query.brand ? router.query.brand.toString() : "";
     const [tokens, setTokens] = useState([]);
 
     useEffect(()=>{
-      if (signets[brand] != undefined) {
-        getAllContractAccolades(signets[brand]).then((response) => {
-          setTokens(response)
-          console.log(response)
-        })
+      if (brand != undefined && brand != "") {
+        if (signets[brand] != undefined) {
+          getAllContractAccolades(signets[brand]).then((response) => {
+            setTokens(response)
+          })
+        }
       }
-    }, [brand])
+    }, [])
 
     function onSubmit(event: FormEvent) {
       console.log(event)

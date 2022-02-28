@@ -141,6 +141,7 @@ const defaultData: IntegrationProps[] = [
     "categories": ["all", "Media"],
     "logoUrl": "https://pbs.twimg.com/profile_images/1098979859446095873/TbBByTY3_400x400.png",
     "bgColor": "gray.100",
+    "description": "Audible is the leading creator and provider of premium audio storytelling, enriching the lives of our millions of listeners every day. ",
     "secondaryName": "audible"
   },
   {
