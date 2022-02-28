@@ -1,8 +1,6 @@
-import Image from 'next/image';
 import {
   Box,
   Center,
-  Heading,
   Text,
   Stack,
   Avatar,
@@ -17,10 +15,6 @@ import {
   ModalFooter,
   useDisclosure,
 } from '@chakra-ui/react';
-
-import NextLink from 'next/link'
-
-
 export interface IntegrationProps {
   companyName: string
   logoUrl: string
@@ -42,7 +36,6 @@ export const IntegrationCard: React.FC<IntegrationProps> = ({companyName, logoUr
         bg={useColorModeValue('white', 'gray.900')}
         boxShadow={'2xl'}
         rounded={'md'}
-        // p={6}
         overflow={'hidden'}
         onClick={onOpen}>
         <Box
@@ -51,8 +44,7 @@ export const IntegrationCard: React.FC<IntegrationProps> = ({companyName, logoUr
           <Stack direction={'row'} spacing={4} align={'center'}>
             <Avatar
               src={logoUrl}
-              // @ts-ignore
-              alt={'Author'}
+              name={'logo'}
             />
             <Stack direction={'column'} spacing={0} fontSize={'sm'}>
               <Text fontSize={'xl'} fontWeight={600}>{companyName}</Text>

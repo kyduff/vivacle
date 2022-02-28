@@ -68,8 +68,7 @@ export const AccoladeCard: React.FC<AccoladeProps> = ({title, imageUrl, categori
         <Stack mt={6} direction={'row'} spacing={4} align={'center'}>
           <Avatar
             src={companyLogoUrl}
-            // @ts-ignore
-            alt={'Author'}
+            name={`Author - ${companyName}`}
           />
           <Stack direction={'column'} spacing={0} fontSize={'sm'}>
             <Text fontWeight={600}>{companyName} - 0xa52j</Text>

@@ -1,15 +1,17 @@
 import { ethers } from "ethers";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const { abi } = require("../../lib/abi.json");
 
-export default async function Mint(req, res) {
+export default async function Mint(req: NextApiRequest, res: NextApiResponse) {
   try {
     const { contractAddress, address, tokenId } = req.body;
 
     const url = process.env.RINKEBY_URL;
     const provider = new ethers.providers.JsonRpcProvider(url);
     const privateKey = process.env.PRIVATE_KEY;
-    const wallet = new ethers.Wallet(privateKey, provider);
+    // Assumes a correct environment setup
+    const wallet = new ethers.Wallet(privateKey!, provider);
 
     const contract = new ethers.Contract(contractAddress, abi, wallet);
 

@@ -1,16 +1,13 @@
 import Head from 'next/head'
 import {
-  Link as ChakraLink,
   Text,
   Tabs,
   TabList, 
   TabPanels,
   TabPanel,
   Tab,
-  SimpleGrid,
   Wrap,
   WrapItem,
-  Center,
   Heading
 } from '@chakra-ui/react'
 
