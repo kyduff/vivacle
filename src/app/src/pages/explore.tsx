@@ -11,10 +11,7 @@ import {
   Heading
 } from '@chakra-ui/react'
 
-import { Container } from '../components/Container'
-import { Main } from '../components/Main'
-import { Footer } from '../components/Footer'
-import { IntegrationCard, IntegrationProps } from '../components/IntegrationCard'
+import { Container, Main, Footer, IntegrationCard, IntegrationProps } from '../components'
 
 interface TabData {
     label: string,
@@ -36,7 +33,7 @@ function Integrations() {
               <TabPanel p={4} key={index}>
                 {/* <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}> */}
                 <Wrap spacing={{ base: 5, lg: 8 }} justify='center'>
-                    {defaultData.filter(x => x.categories.includes(tab.content)).map( datum => <WrapItem><IntegrationCard {...datum}/></WrapItem>)}
+                    {defaultData.filter(x => x.categories.includes(tab.content)).map( (datum, index) => <WrapItem key={index}><IntegrationCard {...datum}/></WrapItem>)}
                 </Wrap>
                 {/* </SimpleGrid> */}
               </TabPanel>
@@ -97,12 +94,6 @@ const Explore = () => (
 )
 
 export default Explore
-
-
-const LOREM_IPSUM = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam\
-nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam\
-erat, sed diam voluptua. At vero eos et accusam et justo duo dolores\
-et ea rebum.'
 
 const defaultData: IntegrationProps[] = [
   {

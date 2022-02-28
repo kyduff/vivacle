@@ -1,8 +1,7 @@
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../utils/UserContext";
-import { Container } from '../components/Container'
-import { Main } from '../components/Main'
+import { Container, Main } from '../components'
 import { VStack, Image, Button } from "@chakra-ui/react";
 import Head from 'next/head'
 
@@ -14,7 +13,7 @@ export default function DiscordLanding() {
 
   const [isDisabled, setDisabled] = useState(false)
 
-  const {user, setUser} = useContext(UserContext);
+  const {user} = useContext(UserContext);
 
   const [verified, setVerified] = useState(false);
 
@@ -68,25 +67,24 @@ export default function DiscordLanding() {
     const body = JSON.stringify({ address: user.address, contractAddress, tokenId });
     console.log(body);
     try {
-      var res = await fetch('/api/mint', {
+      const res = await fetch('/api/mint', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body,
       })
+
+      if (res.status == 200) {
+        setDisabled(true)
+      } else {
+        console.error('error minting token');
+      }
     } catch (error) {
       console.error(error);
       return;
     }
-
-    if (res.status == 200) {
-      setDisabled(true)
-    } else {
-      console.error('error minting token');
-    }
   }
-
 
   return (
     <Container height="100vh">
@@ -104,6 +102,7 @@ export default function DiscordLanding() {
             src={
               'https://cdn.discordapp.com/attachments/945665299938697260/947382707309137980/OxHack.png'
             }
+            alt={'oxhack accolade'}
           />
       <Button
         bg={isDisabled ? 'blue.400': 'green.400'}

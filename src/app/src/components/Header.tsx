@@ -1,4 +1,4 @@
-import {Flex, Box, Spacer, Heading, FlexProps } from "@chakra-ui/react"
+import {Flex, Box, Heading, FlexProps } from "@chakra-ui/react"
 
 export const Header = (props: FlexProps) => (
     <Flex as="header" align='center'>

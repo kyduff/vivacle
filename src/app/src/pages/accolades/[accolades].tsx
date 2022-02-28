@@ -5,21 +5,19 @@ import {
   WrapItem,
   Heading
 } from '@chakra-ui/react'
-
-import { Container } from '../../components/Container'
-import { Main } from '../../components/Main'
-import { Footer } from '../../components/Footer'
-import { AccoladeCard } from '../../components/AccoladeCard'
 import { GetServerSideProps } from 'next'
 import { ethers } from 'ethers'
 
+import { Container, Main, Footer, AccoladeCard } from '../../components'
 import { getAccoladesByContract } from "../../lib/getaccs"
+import { signets } from '../../lib/signets.json'
+import { abi } from "../../lib/abi.json"
 
 interface AccoladeAPIResponse {
   [key: string]: AccoladeAPIDatum[]
 }
 
-interface AccoladeAPIDatum {
+export interface AccoladeAPIDatum {
   name: string
   image_url: string
   description: string
@@ -61,16 +59,12 @@ export default Accolades
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
   // return {props: {accolades :{ "spotify": [ { "name": "Lex Fridman Podcast Superfan — 2021", "image_url": "https://raw.githubusercontent.com/mbiss10/oxhack22/main/spotify_achievement_images/lex.png", "description": "The Lex Fridman Podcast was your most listened-to podcast this year!" }, { "name": "Tastemaker", "image_url": "https://raw.githubusercontent.com/mbiss10/oxhack22/main/spotify_achievement_images/taste.png", "description": "You created a playlist that amassed over 20 followers. You must have good taste!" }, { "name": "Eclectic Ears", "image_url": "https://raw.githubusercontent.com/mbiss10/oxhack22/main/spotify_achievement_images/ears.png", "description": "You listened to songs from 15 different genres this year!" } ], "oxhack": [], "redcross": [], "strava": [] }}}
-  const { signets } = require('../../lib/signets.json');
-
   const provider = new ethers.providers.JsonRpcProvider(process.env.RINKEBY_URL);
-
-  const { abi } = require("../../lib/abi.json");
 
   const address = context.query.accolades!.toString().toLowerCase();
   const accolades = new Object();
 
-  for (let contractAddr in signets) {
+  for (const contractAddr in signets) {
 
     const contract = new ethers.Contract(
       contractAddr,
@@ -81,6 +75,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     let tokens = await getAccoladesByContract(address, contract);
 
     if (tokens === null) {
+      // @ts-ignore
       console.error(`could not get accolades for ${signets[contractAddr]}`);
       tokens = [];
     }

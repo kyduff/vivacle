@@ -20,15 +20,9 @@ import React, { FormEvent, useEffect, useState } from 'react';
 
 import { getAllContractAccolades } from "../lib/getaccs"
 
-import { Container } from '../components/Container'
-import { Main } from '../components/Main'
-import { Footer } from '../components/Footer'
+import { Container, Main, Footer } from '../components'
 import { useRouter } from 'next/router'
-
-interface TabData {
-    label: string,
-    content: string
-}
+import { AccoladeAPIDatum } from './accolades/[accolades]';
 
 const Accolades = () => (
   <Container height="100vh">
@@ -50,7 +44,7 @@ export default Accolades
 
 function UserProfileEdit(): JSX.Element {
     const router = useRouter()
-    const [tokens, setTokens] = useState<any[]>([]);
+    const [tokens, setTokens] = useState<AccoladeAPIDatum[]>([]);
 
     useEffect(()=>{
       getAllContractAccolades("0x150fB911DA54B7841c841B0B939D9006C6feDC15").then((response) => {

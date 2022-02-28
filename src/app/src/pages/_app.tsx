@@ -2,7 +2,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 
 import theme from '../theme'
 import { AppProps } from 'next/app'
-import { Nav } from '../components/Nav'
+import { Nav } from '../components'
 import { UserContextProvider } from '../utils/UserContext'
 
 function MyApp({ Component, pageProps }: AppProps) {
