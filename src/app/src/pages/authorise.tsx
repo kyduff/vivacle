@@ -40,16 +40,47 @@ const Accolades = () => (
   </Container>
 )
 
+const signets = {
+    spotify: "0x150fB911DA54B7841c841B0B939D9006C6feDC15",
+    oxhack: "0x47a2f25ad83Efa1BaA376D062284e777dD223463",
+    redcross: "0xb9a749F903682127dE0b29BA02C10c847A6593b6",
+    strava: "0x75F60C7CEe414FE60bB96a12d930F3DC8E59eEf3",
+}
+
+const brands = {
+    "premierleague": "https://s3.amazonaws.com/premierleague-static-files/premierleague/pl_icon.png",
+    "nba": "http://nbahoopsonline.com/Articles/2016-17/nbaaplogo.jpg",
+    "oxdack2022": "https://oxfordhack22.co.uk/logo512.png",
+    "spotify": "https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-download-logo-30.png",
+    "netflix": "https://cdn.vox-cdn.com/thumbor/AwKSiDyDnwy_qoVdLPyoRPUPo00=/39x0:3111x2048/1400x1400/filters:focal(39x0:3111x2048):format(png)/cdn.vox-cdn.com/uploads/chorus_image/image/49901753/netflixlogo.0.0.png",
+    "audible": "https://pbs.twimg.com/profile_images/1098979859446095873/TbBByTY3_400x400.png",
+    "duolingo": "https://www.duolingo.com/images/facebook/duo200.png",
+    "coursera": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Coursera-Logo_600x600.svg/1200px-Coursera-Logo_600x600.svg.png",
+    "udacity": "https://media.glassdoor.com/sqll/659776/udacity-squarelogo-1458083545831.png",
+    "chainshot": "https://d92mrp7hetgfk.cloudfront.net/images/sites/misc/ChainShot_Logo/original.png?1615842691",
+    "mapmyrun": "https://blog.mapmyrun.com/wp-content/uploads/2020/04/RUN-AppIcon.png",
+    "strava": "https://icon-library.com/images/strava-icon/strava-icon-10.jpg",
+    "fitbit": "https://media.glassdoor.com/sqll/500145/fitbit-squarelogo-1452064129606.png",
+    "applefitness": "https://www.iphonejd.com/.a/6a010535fde333970c026be43261f5200d-pi",
+    "peloton": "https://play-lh.googleusercontent.com/wNmoGX3LqZUzZeCtvTm3jSAcwrvt9wRnjo5CYydSkiQOBf5IDNB8ndBkpRLVU6xpggX3",
+    "alltrails": "https://media.glassdoor.com/sqll/2311916/alltrails-squarelogo-1539895815445.png"
+}
+
 export default Accolades
 
 function UserProfileEdit(): JSX.Element {
     const router = useRouter()
-    const [tokens, setTokens] = useState<AccoladeAPIDatum[]>([]);
+    const brand = router.query.brand;
+    const [tokens, setTokens] = useState([]);
 
     useEffect(()=>{
-      getAllContractAccolades("0x150fB911DA54B7841c841B0B939D9006C6feDC15").then((response) => {
-        setTokens(response)
-      })
+      if (signets[brand] != undefined) {
+        console.log('true')
+        getAllContractAccolades(signets[brand]).then((response) => {
+          setTokens(response)
+          console.log(response)
+        })
+      }
     }, [])
 
     function onSubmit(event: FormEvent) {
@@ -85,17 +116,17 @@ function UserProfileEdit(): JSX.Element {
             <HStack spacing={12}>
                 <Avatar size="xl" src="/favicon.ico"/>
                 <CheckCircleIcon color={'green.500'} boxSize={'2em'}/>
-                <Avatar size="xl" src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-download-logo-30.png"/>
+                <Avatar size="xl" src={brands[brand]}/>
             </HStack>
           </Center>
           <form onSubmit={onSubmit}>
           <FormControl id="selectingAccolades">
-            <FormLabel>Select which of your accolades you would like to import from Spotify</FormLabel>
+            <FormLabel>Select which of your accolades you would like to import</FormLabel>
             <CheckboxGroup colorScheme='green' defaultValue={['naruto', 'kakashi']}>
             <VStack spacing={[1, 5]} py={12}>
-            {tokens.length ? tokens.map((value, index: number) => (
+            {signets[brand] != undefined ? tokens.length ? tokens.map((value, index: number) => (
               <Checkbox value={'pk_' + index.toString()} id={index.toString()} key={index.toString()}>{value.name}</Checkbox>
-            )): <p>Loading...</p>}
+            )): <p>Loading...</p> : <p>No tokens to claim</p>}
             </VStack>
             </CheckboxGroup>
           </FormControl>
