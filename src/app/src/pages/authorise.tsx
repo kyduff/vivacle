@@ -75,13 +75,12 @@ function UserProfileEdit(): JSX.Element {
 
     useEffect(()=>{
       if (signets[brand] != undefined) {
-        console.log('true')
         getAllContractAccolades(signets[brand]).then((response) => {
           setTokens(response)
           console.log(response)
         })
       }
-    }, [])
+    }, [brand])
 
     function onSubmit(event: FormEvent) {
       console.log(event)
