@@ -1,5 +1,4 @@
 import { Contract, ethers } from "ethers";
-import { abi } from "./abi.json";
 
 function replaceId(str: string, id: number) {
   const idHex = id.toString(16).padStart(64, '0');
@@ -51,9 +50,13 @@ export async function getAccoladesByContract(address: string, contract: Contract
   return tokens;
 }
 
-export async function getAllContractAccolades(contractAddress: string) {
+
+export async function getAllContractAccolades(contractAddress) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner();
+  const abi = [
+              "function uri(uint256 id) external view returns (string memory)",
+              "function totalTokenIdCount() public view returns (uint256)"]
   const contract = new ethers.Contract(contractAddress, abi, signer);
   const numTokens = await contract.totalTokenIdCount();
 
