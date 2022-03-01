@@ -83,3 +83,47 @@ export async function getAllContractAccolades(contractAddress) {
   }
   return tokens;
 }
+
+async function filterQueryResult(queryResult) {
+  const idsAndTimestamps = [];
+  for (const event of queryResult) {
+    const blockInfo = await event.getBlock();
+    const timestamp = blockInfo.timestamp;
+    for (const id of event.args.ids) {
+      const idNum = Number(id._hex);
+      idsAndTimestamps.push([idNum, timestamp]);
+    }
+  }
+  return idsAndTimestamps;
+}
+
+export async function getIdsAndTimestampsByEvents(address: string, contract: Contract) {
+  // Fetch all Batch Transfer ids/timestamps
+  const batchTransferFilter = contract.filters.TransferBatch(
+    null,
+    null,
+    address
+  );
+  const batchQueryResult = await contract.queryFilter(batchTransferFilter);
+  let batchIdsAndTimestamps = [];
+  if (batchQueryResult.length > 0) {
+    batchIdsAndTimestamps = await filterQueryResult(batchQueryResult);
+  }
+
+  // Fetch all single Transfer ids/timestamps
+  const singleTransferFilter = contract.filters.TransferSingle(
+    null,
+    null,
+    address
+  );
+  const singleQueryResult = await contract.queryFilter(singleTransferFilter);
+  let singleIdsAndTimestamps = [];
+  if (singleQueryResult.length > 0) {
+    singleIdsAndTimestamps = await filterQueryResult(singleQueryResult);
+  }
+
+  const allIdsAndTimestamps = batchIdsAndTimestamps.concat(
+    singleIdsAndTimestamps
+  );
+  return allIdsAndTimestamps;
+}
