@@ -10,8 +10,10 @@ import { ethers } from 'ethers'
 
 import { Container, Main, Footer, AccoladeCard } from '../../components'
 import { getAccoladesByContract } from "../../lib/getaccs"
-import { signets } from '../../lib/signets.json'
-import { abi } from "../../lib/abi.json"
+import _signets from '../../lib/signets.json'
+const { signets } = _signets
+import _abi from "../../lib/abi.json";
+const { abi } = _abi
 
 interface AccoladeAPIResponse {
   [key: string]: AccoladeAPIDatum[]

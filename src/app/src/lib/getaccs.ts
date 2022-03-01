@@ -1,5 +1,6 @@
 import { Contract, ethers } from "ethers";
-import { abi } from "./abi.json";
+import _abi from "./abi.json";
+const { abi } = _abi
 
 function replaceId(str: string, id: number) {
   const idHex = id.toString(16).padStart(64, '0');
