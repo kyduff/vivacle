@@ -22,11 +22,14 @@ export interface IntegrationProps {
   description: string
   bgColor: string
   secondaryHref?: string
+  secondaryName?: string
 }
 
-export const IntegrationCard: React.FC<IntegrationProps> = ({companyName, logoUrl, categories, description, bgColor, secondaryHref }) => {
+
+export const IntegrationCard: React.FC<IntegrationProps> = ({companyName, logoUrl, categories, description, bgColor, secondaryHref, secondaryName }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  
+  const localUrl = '/authorise?brand=' + secondaryName
+
   return (
     <Center py={6}>
       <Box
@@ -88,7 +91,7 @@ export const IntegrationCard: React.FC<IntegrationProps> = ({companyName, logoUr
             <Button variant='ghost' mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button as={'a'} colorScheme='blue' href={secondaryHref ? secondaryHref : '/authorise'}> Claim your Accolades</Button>
+            <Button as={'a'} colorScheme='blue' href={secondaryHref ? secondaryHref : localUrl}> Claim your Accolades</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -104,6 +107,5 @@ IntegrationCard.defaultProps = {
   nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam\
   erat, sed diam voluptua. At vero eos et accusam et justo duo dolores\
   et ea rebum.',
-  bgColor: 'blue.100',
-  secondaryHref: '/authorise'
+  bgColor: 'blue.100'
 }
