@@ -55,18 +55,23 @@ export async function getAccoladesByContract(address: string, contract: Contract
 }
 
 
-export async function getAllContractAccolades(contractAddress) {
+export async function getAllContractAccolades(contractAddress: string) {
+
+  console.log(`contract: ${contractAddress}`);
+
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner();
   const abi = [
-              "function uri(uint256 id) external view returns (string memory)",
-              "function totalTokenIdCount() public view returns (uint256)"]
+    "function uri(uint256 id) external view returns (string memory)",
+    "function totalTokenIdCount() public view returns (uint256)"
+  ]
   const contract = new ethers.Contract(contractAddress, abi, signer);
   const numTokens = await contract.totalTokenIdCount();
+  const uri = await contract.uri(0);
+  console.log(`numTokens: ${numTokens}; uri: ${uri}`);
 
   const tokens = [];
   for (let i = 0; i < numTokens; i++) {
-    const uri = await contract.uri(i);
 
     const url = replaceId(uri, i);
     try {
