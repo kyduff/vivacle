@@ -55,7 +55,7 @@ export async function getAccoladesByContract(address: string, contract: Contract
 }
 
 
-export async function getAllContractAccolades(contractAddress) {
+export async function getAllContractAccolades(contractAddress: string) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner();
   const abi = [
@@ -84,11 +84,19 @@ export async function getAllContractAccolades(contractAddress) {
   return tokens;
 }
 
-async function filterQueryResult(queryResult) {
+async function filterQueryResult(queryResult: ethers.Event[]) {
   const idsAndTimestamps = [];
   for (const event of queryResult) {
+
+    if (event.args?.ids === undefined) {
+      continue;
+    }
+
     const blockInfo = await event.getBlock();
     const timestamp = blockInfo.timestamp;
+
+    console.log(`${event.args.ids}`);
+
     for (const id of event.args.ids) {
       const idNum = Number(id._hex);
       idsAndTimestamps.push([idNum, timestamp]);
@@ -97,6 +105,23 @@ async function filterQueryResult(queryResult) {
   return idsAndTimestamps;
 }
 
+
+async function getMetadataFromId(id: number, contract: Contract) {
+
+  const uri = await contract.uri(id);
+  const url = replaceId(uri, id);
+
+  const res = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  return await res.json();
+}
+
+
 export async function getIdsAndTimestampsByEvents(address: string, contract: Contract) {
   // Fetch all Batch Transfer ids/timestamps
   const batchTransferFilter = contract.filters.TransferBatch(
@@ -104,11 +129,17 @@ export async function getIdsAndTimestampsByEvents(address: string, contract: Con
     null,
     address
   );
+
+  console.log(`address: ${contract.address}`);
+
   const batchQueryResult = await contract.queryFilter(batchTransferFilter);
   let batchIdsAndTimestamps = [];
+
   if (batchQueryResult.length > 0) {
     batchIdsAndTimestamps = await filterQueryResult(batchQueryResult);
   }
+
+  console.log(`batch: ${batchIdsAndTimestamps}`)
 
   // Fetch all single Transfer ids/timestamps
   const singleTransferFilter = contract.filters.TransferSingle(
@@ -122,8 +153,19 @@ export async function getIdsAndTimestampsByEvents(address: string, contract: Con
     singleIdsAndTimestamps = await filterQueryResult(singleQueryResult);
   }
 
+  console.log(`single: ${singleIdsAndTimestamps}`);
+
   const allIdsAndTimestamps = batchIdsAndTimestamps.concat(
     singleIdsAndTimestamps
   );
-  return allIdsAndTimestamps;
+
+  let tokens = [];
+
+  for (const [id, timestamp] of allIdsAndTimestamps) {
+    let metadata = await getMetadataFromId(id, contract);
+    metadata.timestamp = timestamp;
+    tokens.push(metadata);
+  }
+
+  return tokens;
 }
