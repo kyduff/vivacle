@@ -88,3 +88,87 @@ export async function getAllContractAccolades(contractAddress: string) {
   }
   return tokens;
 }
+
+async function filterQueryResult(queryResult: ethers.Event[]) {
+  const idsAndTimestamps = [];
+  for (const event of queryResult) {
+
+    const ids = event.args.id !== undefined ? [event.args.id] : event.args.ids;
+
+    const blockInfo = await event.getBlock();
+    const timestamp = blockInfo.timestamp;
+
+    console.log(`${ids}`);
+
+    for (const id of ids) {
+      const idNum = Number(id._hex);
+      idsAndTimestamps.push([idNum, timestamp]);
+    }
+  }
+  return idsAndTimestamps;
+}
+
+
+async function getMetadataFromId(id: number, contract: Contract) {
+
+  const uri = await contract.uri(id);
+  const url = replaceId(uri, id);
+
+  const res = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  return await res.json();
+}
+
+
+export async function getIdsAndTimestampsByEvents(address: string, contract: Contract) {
+  // Fetch all Batch Transfer ids/timestamps
+  const batchTransferFilter = contract.filters.TransferBatch(
+    null,
+    null,
+    address
+  );
+
+  console.log(`address: ${contract.address}`);
+
+  const batchQueryResult = await contract.queryFilter(batchTransferFilter);
+  let batchIdsAndTimestamps = [];
+
+  if (batchQueryResult.length > 0) {
+    batchIdsAndTimestamps = await filterQueryResult(batchQueryResult);
+  }
+
+  console.log(`batch: ${batchIdsAndTimestamps}`)
+
+  // Fetch all single Transfer ids/timestamps
+  const singleTransferFilter = contract.filters.TransferSingle(
+    null,
+    null,
+    address
+  );
+  const singleQueryResult = await contract.queryFilter(singleTransferFilter);
+  let singleIdsAndTimestamps = [];
+  if (singleQueryResult.length > 0) {
+    singleIdsAndTimestamps = await filterQueryResult(singleQueryResult);
+  }
+
+  console.log(`single: ${singleIdsAndTimestamps}`);
+
+  const allIdsAndTimestamps = batchIdsAndTimestamps.concat(
+    singleIdsAndTimestamps
+  );
+
+  const tokens = [];
+
+  for (const [id, timestamp] of allIdsAndTimestamps) {
+    const metadata = await getMetadataFromId(id, contract);
+    metadata.timestamp = timestamp;
+    tokens.push(metadata);
+  }
+
+  return tokens;
+}

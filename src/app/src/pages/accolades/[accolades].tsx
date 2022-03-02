@@ -9,7 +9,7 @@ import { GetServerSideProps } from 'next'
 import { ethers } from 'ethers'
 
 import { Container, Main, Footer, AccoladeCard } from '../../components'
-import { getAccoladesByContract } from "../../lib/getaccs"
+import { getAccoladesByContract, getIdsAndTimestampsByEvents } from "../../lib/getaccs"
 import _signets from '../../lib/signets.json'
 const { signets } = _signets
 import _abi from "../../lib/abi.json";
@@ -67,14 +67,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const accolades = new Object();
 
   for (const contractAddr in signets) {
-
     const contract = new ethers.Contract(
       contractAddr,
       abi,
       provider,
     );
 
-    let tokens = await getAccoladesByContract(address, contract);
+    let tokens = await getIdsAndTimestampsByEvents(address, contract);
 
     if (tokens === null) {
       // @ts-ignore
@@ -82,7 +81,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       tokens = [];
     }
 
-    // @ts-ignore
     accolades[signets[contractAddr]] = tokens;
   }
 
