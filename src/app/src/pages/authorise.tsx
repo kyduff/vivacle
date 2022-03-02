@@ -85,7 +85,7 @@ function UserProfileEdit(): JSX.Element {
           })
         }
       }
-    }, [])
+    }, [brand])
 
     function onSubmit(event: FormEvent) {
       console.log(event)
