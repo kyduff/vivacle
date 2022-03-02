@@ -162,10 +162,10 @@ export async function getIdsAndTimestampsByEvents(address: string, contract: Con
     singleIdsAndTimestamps
   );
 
-  let tokens = [];
+  const tokens = [];
 
   for (const [id, timestamp] of allIdsAndTimestamps) {
-    let metadata = await getMetadataFromId(id, contract);
+    const metadata = await getMetadataFromId(id, contract);
     metadata.timestamp = timestamp;
     tokens.push(metadata);
   }
