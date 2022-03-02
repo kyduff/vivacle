@@ -88,16 +88,14 @@ async function filterQueryResult(queryResult: ethers.Event[]) {
   const idsAndTimestamps = [];
   for (const event of queryResult) {
 
-    if (event.args?.ids === undefined) {
-      continue;
-    }
+    let ids = event.args.id !== undefined ? [event.args.id] : event.args.ids;
 
     const blockInfo = await event.getBlock();
     const timestamp = blockInfo.timestamp;
 
-    console.log(`${event.args.ids}`);
+    console.log(`${ids}`);
 
-    for (const id of event.args.ids) {
+    for (const id of ids) {
       const idNum = Number(id._hex);
       idsAndTimestamps.push([idNum, timestamp]);
     }
