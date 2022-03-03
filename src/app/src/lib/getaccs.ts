@@ -5,8 +5,9 @@ const { abi } = _abi
 
 
 function replaceId(str: string, id: number) {
-  const idHex = id.toString(16).padStart(64, '0');
-  return str.replace(/\{id\}/g, idHex);
+  // const idHex = id.toString(16).padStart(64, '0');
+  const paddedId = id.toString().padStart(64, '0')
+  return str.replace(/\{id\}/g, paddedId);
 }
 
 export async function getAccoladesByContract(address: string, contract: Contract) {
@@ -54,6 +55,36 @@ export async function getAccoladesByContract(address: string, contract: Contract
   return tokens;
 }
 
+export async function getOwnedAccoladesByContractAddress(address: string, contractAddress: string) {
+
+  const provider = new ethers.providers.Web3Provider(window.ethereum)
+  const signer = provider.getSigner();
+  const hrAbi = [
+    "function uri(uint256 id) external view returns (string memory)",
+    "function totalTokenIdCount() public view returns (uint256)",
+    "function balanceOfBatch(address[] memory accounts, uint256[] memory ids) public view returns (uint256[] memory)"
+  ]
+  const contract = new ethers.Contract(contractAddress, hrAbi, signer);
+  const numTokens = await contract.totalTokenIdCount();
+
+  const addrs = [];
+  const ids = [];
+
+  for (let i = 0; i < numTokens; i++) {
+    addrs.push(address);
+    ids.push(i);
+  }
+
+  const balances = await contract.balanceOfBatch(addrs, ids);
+  const ownedTokens = [];
+  for (let i = 0; i < numTokens; i++) {
+    if (balances[i] >= 1) {
+      ownedTokens.push(ids[i])
+    }
+  }
+
+  return ownedTokens;
+}
 
 export async function getAllContractAccolades(contractAddress: string) {
 
@@ -61,11 +92,11 @@ export async function getAllContractAccolades(contractAddress: string) {
 
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner();
-  const abi = [
+  const hrAbi = [
     "function uri(uint256 id) external view returns (string memory)",
     "function totalTokenIdCount() public view returns (uint256)"
   ]
-  const contract = new ethers.Contract(contractAddress, abi, signer);
+  const contract = new ethers.Contract(contractAddress, hrAbi, signer);
   const numTokens = await contract.totalTokenIdCount();
   const uri = await contract.uri(0);
   console.log(`numTokens: ${numTokens}; uri: ${uri}`);
@@ -169,6 +200,41 @@ export async function getIdsAndTimestampsByEvents(address: string, contract: Con
     metadata.timestamp = timestamp;
     tokens.push(metadata);
   }
+  return tokens;
+}
 
+
+export async function getEligibleContractAccolades(contractAddress: string, eligibleTokenList: number[]) {
+
+  console.log(`contract: ${contractAddress}`);
+
+  const provider = new ethers.providers.Web3Provider(window.ethereum)
+  const signer = provider.getSigner();
+  const hrAbi = [
+    "function uri(uint256 id) external view returns (string memory)",
+    "function totalTokenIdCount() public view returns (uint256)"
+  ]
+  const contract = new ethers.Contract(contractAddress, hrAbi, signer);
+  const uri = await contract.uri(0);
+  console.log(`numTokens: ${eligibleTokenList.length}; uri: ${uri}`);
+
+  const tokens = [];
+  for (let i = 0; i < eligibleTokenList.length; i++) {
+
+    const url = replaceId(uri, eligibleTokenList[i]);
+    try {
+      const res = await fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const newToken = await res.json()
+      newToken["tokenId"] = eligibleTokenList[i];
+      tokens.push(newToken);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return tokens;
 }

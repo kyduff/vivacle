@@ -18,11 +18,14 @@ import {
 import { CheckCircleIcon } from '@chakra-ui/icons';
 import React, { FormEvent, useEffect, useState } from 'react';
 
-import { getAllContractAccolades } from "../lib/getaccs"
+import { getEligibleContractAccolades, getOwnedAccoladesByContractAddress } from "../lib/getaccs"
+import { useContext } from 'react';
+import { UserContext } from '../utils/UserContext';
 
 import { Container, Main, Footer } from '../components'
 import { useRouter } from 'next/router'
 import { AccoladeAPIDatum } from './accolades/[accolades]';
+import { ethers } from 'ethers';
 
 const Accolades = () => (
   <Container height="100vh">
@@ -75,28 +78,68 @@ export default Accolades
 function UserProfileEdit(): JSX.Element {
     const router = useRouter()
     const brand: string = router.query.brand ? router.query.brand.toString() : "";
+    const [minting, setMinting] = useState([]);
     const [tokens, setTokens] = useState([]);
+    const [unclaimedTokensState, setUnclaimedTokensState] = useState([]);
+    const {user} = useContext(UserContext)
 
     useEffect(()=>{
-      if (brand != undefined && brand != "") {
-        if (signets[brand] != undefined) {
-          getAllContractAccolades(signets[brand]).then((response) => {
-            setTokens(response)
-          })
-        }
+      if (brand != undefined && brand != "" && user.address) {
+        // verify user using oauth
+        //const username/email = res.username/email
+        //fetch(url + username).then => const eligibleTokens = res.tokens
+        const eligibleTokens = [0, 1, 30, 47];
+        const claimedTokens = [];
+        getOwnedAccoladesByContractAddress(user.address, signets[brand]).then((response) => {
+          for (let i = 0; i < response.length; i++) {
+            claimedTokens.push(response[i])
+          }
+          const unclaimedTokens = eligibleTokens.filter(x => !claimedTokens.includes(x)).concat(claimedTokens.filter(x => !eligibleTokens.includes(x)));
+          setUnclaimedTokensState(unclaimedTokens)
+          if (signets[brand] != undefined) {
+            getEligibleContractAccolades(signets[brand], unclaimedTokens).then((response) => {
+              setTokens(response)
+            })
+          }
+        })
       }
-    }, [brand])
+    }, [brand, user])
 
-    function onSubmit(event: FormEvent) {
-      console.log(event)
+    async function onSubmit(event: FormEvent) {
       event.preventDefault();
       const elements = (event.target as HTMLFormElement).elements as HTMLFormControlsCollection
+      const mintingTokens = [];
       Array.from(elements).map(function(key, index) {
         const element = (elements[index] as HTMLInputElement)
         if (element.type === "checkbox" && element.checked) {
-          console.log(element.value)
+          const tokenId = parseInt(element.value.slice(3));
+          if (unclaimedTokensState.includes(tokenId) && !minting.includes(tokenId)) {
+            mintingTokens.push(tokenId)
+          } else {
+            console.log('Token already claimed')
+          }
         }
       });
+      const body = JSON.stringify({contractAddress: signets[brand], address: user.address, tokenIds: mintingTokens });
+      try {
+        const res = await fetch('/api/batchmint', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body,
+        })
+
+        if (res.status == 200) {
+          const jsonResponse = await res.json();
+          setMinting(jsonResponse["tokens"])
+        } else {
+          console.error('error minting token');
+        }
+      } catch (error) {
+        console.error(error);
+        return;
+      }
     }
 
     return (
@@ -123,13 +166,17 @@ function UserProfileEdit(): JSX.Element {
                 <Avatar size="xl" src={brands[brand]}/>
             </HStack>
           </Center>
+          {minting.length > 0 ? <Center><Stack spacing={3}>
+            <Text fontSize='lg' color='red'>Your tokens are currently being minted</Text>
+          </Stack></Center>
+          : null}
           <form onSubmit={onSubmit}>
           <FormControl id="selectingAccolades">
             <FormLabel>Select which of your accolades you would like to import</FormLabel>
             <CheckboxGroup colorScheme='green' defaultValue={['naruto', 'kakashi']}>
-            <VStack spacing={[1, 5]} py={12}>
+            <VStack spacing={[1, 5]} py={6}>
             {signets[brand] != undefined ? tokens.length ? tokens.map((value, index: number) => (
-              <Checkbox value={'pk_' + index.toString()} id={index.toString()} key={index.toString()}>{value.name}</Checkbox>
+              <Checkbox value={'pk_' + value.tokenId.toString()} id={value.tokenId.toString()} key={value.tokenId.toString()}>{value.name}</Checkbox>
             )): <p>Loading...</p> : <p>No tokens to claim</p>}
             </VStack>
             </CheckboxGroup>
