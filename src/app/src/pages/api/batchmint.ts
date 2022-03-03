@@ -13,9 +13,9 @@ export default async function Mint(req: NextApiRequest, res: NextApiResponse) {
     // Assumes a correct environment setup
     const wallet = new ethers.Wallet(privateKey!, provider);
 
-    // const amounts = new Array(tokenIds.length).fill(1);
-    // const contract = new ethers.Contract(contractAddress, abi, wallet);
-    // const tx = await contract.mintBatch(address, tokenIds, amounts, "0x00");
+    const amounts = new Array(tokenIds.length).fill(1);
+    const contract = new ethers.Contract(contractAddress, abi, wallet);
+    const tx = await contract.mintBatch(address, tokenIds, amounts, "0x00");
 
     res.status(200).json({ tokens: tokenIds });
   } catch (error) {

@@ -5,9 +5,8 @@ const { abi } = _abi
 
 
 function replaceId(str: string, id: number) {
-  // const idHex = id.toString(16).padStart(64, '0');
-  const paddedId = id.toString().padStart(64, '0')
-  return str.replace(/\{id\}/g, paddedId);
+  const idHex = id.toString(16).padStart(64, '0');
+  return str.replace(/\{id\}/g, idHex);
 }
 
 export async function getAccoladesByContract(address: string, contract: Contract) {
