@@ -1,4 +1,4 @@
-  import { ethers } from "ethers";
+import { ethers } from "ethers";
 import { NextApiRequest, NextApiResponse } from "next";
 import _abi from "../../lib/abi.json";
 const { abi } = _abi

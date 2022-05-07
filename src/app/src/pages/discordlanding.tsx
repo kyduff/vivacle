@@ -51,7 +51,7 @@ export default function DiscordLanding() {
     (async () => {
       await handleTok();
     })();
-  }, [code]);
+  }, [code, handleTok]);
 
   async function handleClaim() {
 
