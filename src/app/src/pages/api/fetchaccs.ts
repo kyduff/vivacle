@@ -13,7 +13,7 @@ export default async function FetchAccs(req: NextApiRequest, res: NextApiRespons
   try {
 
     const { address } = req.body;
-    let accolades = new Object();
+    const accolades = new Object();
 
     console.log(`fetching accolades for ${address}`)
     console.log(`signets: ${signets}`)
