@@ -1,29 +1,51 @@
 import { ethers } from 'ethers';
+import Web3Modal from "web3modal";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 
-export async function getAddress() {
-  // Check if MetaMask installed
-  if (window.ethereum) {
-    const provider = new ethers.providers.Web3Provider(window.ethereum, "rinkeby");
-    // check if correct network connected
-    const chainId = await window.ethereum.request({ method: 'eth_chainId'});
-
-    console.log(chainId)
-    if ( chainId != "0x4") {
-        alert("Please change to Rinkeby/")
-    }
-    else {
-        
-        await provider.send("eth_requestAccounts", []);
-        const signer = provider.getSigner();
-
-        console.log("Account:", await signer.getAddress());
-        const balance = await provider.getBalance(signer.getAddress());
-        console.log("Balance: ", balance);
-        
-        return await signer.getAddress();
+const providerOptions = {
+  walletconnect: {
+    package: WalletConnectProvider,
+    options: {
+      infuraId: process.env.INFURA_ID
     }
   }
-  else{
-      alert("No wallet/ethereum provider detected, please install metamask.")
+};
+
+const toHex = (num) => {
+  const val = Number(num);
+  return "0x" + val.toString(16);
+};
+
+export async function getAddress() {
+
+  const web3Modal = new Web3Modal({
+    cacheProvider: true,
+    providerOptions
+  });
+
+  if (!web3Modal.cachedProvider) return;
+
+  try {
+
+    const instance = await web3Modal.connect();
+
+    const provider = new ethers.providers.Web3Provider(instance);
+    const signer = provider.getSigner();
+
+    const { chainId } = await provider.getNetwork();
+    if (chainId !== 4) {
+      try {
+        await provider.provider.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: toHex(4) }]
+        });
+      } catch (error) {
+        alert('Please switch network to Rinkeby')
+      }
+    }
+
+    return await signer.getAddress();
+  } catch(error) {
+    console.log(error)
   }
 }

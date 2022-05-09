@@ -13,5 +13,5 @@ export const Hero = ({ title }: { title: string }) => (
 )
 
 Hero.defaultProps = {
-  title: 'Welcome to OxHack22',
+  title: 'Welcome to Vivacle',
 }

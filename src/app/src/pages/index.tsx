@@ -13,7 +13,7 @@ const Index = () => (
     <Hero />
 
     <Footer>
-      <Text>Courtesy of the best OxHack22 Team ❤️</Text>
+      <Text>Made in Oxford ❤️</Text>
     </Footer>
   </Container>
 )

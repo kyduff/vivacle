@@ -5,12 +5,12 @@ import { UserContext } from "../utils/UserContext";
 
 
 export const ConnectWalletButton: React.FC = () => {
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
 
     return (
         <Center>
-        <Button leftIcon={<Image maxH={'40px'} src={'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/512px-MetaMask_Fox.svg.png?20201112074605'} alt={'metamask logo'}/>} colorScheme={user.address? 'orange': 'teal'} type='submit' className="connectButton" onClick={async () => await getAddress()} >
-            {user.address? 'Wallet Connected': 'Connect Wallet'}
+        <Button colorScheme={user.address? 'orange': 'teal'} type='submit' className="connectButton" onClick={user.address ? undefined : async () => setUser({ address: await getAddress() })} >
+            {user.address ? user.address.slice(0,5) + '...' + user.address.slice(-4): 'Connect Wallet'}
         </Button>
         </Center>
     )
