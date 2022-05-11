@@ -7,7 +7,7 @@ const toHex = (num) => {
   return "0x" + val.toString(16);
 };
 
-export async function getAddress(buttonClick: bool) {
+export async function getAddress(buttonClick) {
 
   const providerOptions = {
     walletconnect: {
