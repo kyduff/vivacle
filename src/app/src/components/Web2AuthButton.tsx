@@ -8,7 +8,7 @@ export const Web2AuthButton: React.FC = () => {
 
   return (
     <Center>
-      <Button colorScheme={session ? 'red' : 'black'} type='submit' className="connectButton" variant={'link'} onClick={session ? () => signOut() : () => signIn()} >
+      <Button colorScheme={session ? 'red' : 'black'} type='submit' className="connectButton" _focus={{ outline: 'none'}} variant={'link'} onClick={session ? () => signOut() : () => signIn()} >
         {session ? 'Log out' : 'Log in'}
       </Button>
     </Center>
