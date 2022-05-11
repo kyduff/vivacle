@@ -53,8 +53,8 @@ export const Nav = () => {
 
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
-              <ConnectWalletButton />
               <Web2AuthButton />
+              <ConnectWalletButton />
               <DarkModeSwitch/>
             </Stack>
           </Flex>
