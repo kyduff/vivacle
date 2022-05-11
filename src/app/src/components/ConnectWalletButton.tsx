@@ -9,7 +9,7 @@ export const ConnectWalletButton: React.FC = () => {
 
     return (
         <Center>
-        <Button colorScheme={user.address? 'orange': 'teal'} type='submit' className="connectButton" onClick={user.address ? undefined : async () => setUser({ address: await getAddress() })} >
+        <Button colorScheme={user.address? 'orange': 'teal'} type='submit' className="connectButton" onClick={user.address ? undefined : async () => setUser({ address: await getAddress(true) })} >
             {user.address ? user.address.slice(0,5) + '...' + user.address.slice(-4): 'Connect Wallet'}
         </Button>
         </Center>

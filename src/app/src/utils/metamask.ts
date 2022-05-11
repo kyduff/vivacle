@@ -2,28 +2,28 @@ import { ethers } from 'ethers';
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 
-const providerOptions = {
-  walletconnect: {
-    package: WalletConnectProvider,
-    options: {
-      infuraId: process.env.INFURA_ID
-    }
-  }
-};
-
 const toHex = (num) => {
   const val = Number(num);
   return "0x" + val.toString(16);
 };
 
-export async function getAddress() {
+export async function getAddress(buttonClick: bool) {
+
+  const providerOptions = {
+    walletconnect: {
+      package: WalletConnectProvider,
+      options: {
+        infuraId: process.env.NEXT_PUBLIC_INFURA_KEY
+      }
+    }
+  };
 
   const web3Modal = new Web3Modal({
     cacheProvider: true,
     providerOptions
   });
 
-  if (!web3Modal.cachedProvider) return;
+  if (!buttonClick && !web3Modal.cachedProvider) return;
 
   try {
 

@@ -23,14 +23,14 @@ export const UserContextProvider: React.FC = ({ children }) => {
   useEffect(() => {
     if (user) return;
     const setAddress = async () => {
-      setUser({ address: await getAddress() })
+      setUser({ address: await getAddress(false) })
     }
     setAddress();
   }, [user]);
 
   useEffect(() => {
     const setAddress = async () => {
-      setUser({ address: await getAddress() })
+      setUser({ address: await getAddress(false) })
     }
     setAddress();
   }, []);
