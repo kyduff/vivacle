@@ -11,7 +11,7 @@ interface UserContext {
 }
 
 export const UserContext = createContext<UserContext>({
-  user: {address: ''}, 
+  user: {address: ''},
   setUser: () => {}
 });
 
@@ -21,12 +21,19 @@ export const UserContextProvider: React.FC = ({ children }) => {
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
   useEffect(() => {
+    if (user) return;
     const setAddress = async () => {
-      setUser({ address: await getAddress() })
+      setUser({ address: await getAddress(false) })
     }
     setAddress();
-    console.log("User was fetched")
-}, []);
+  }, [user]);
+
+  useEffect(() => {
+    const setAddress = async () => {
+      setUser({ address: await getAddress(false) })
+    }
+    setAddress();
+  }, []);
 
   return (
     <UserContext.Provider value={value}>

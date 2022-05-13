@@ -1,17 +1,17 @@
-import {Button, Center, Image } from "@chakra-ui/react"
+import { Button, Center, Image } from "@chakra-ui/react"
 import React, { useContext } from "react";
 import { getAddress } from "../utils/metamask";
 import { UserContext } from "../utils/UserContext";
 
 
 export const ConnectWalletButton: React.FC = () => {
-    const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
-    return (
-        <Center>
-        <Button leftIcon={<Image maxH={'40px'} src={'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/512px-MetaMask_Fox.svg.png?20201112074605'} alt={'metamask logo'}/>} colorScheme={user.address? 'orange': 'teal'} type='submit' className="connectButton" onClick={async () => await getAddress()} >
-            {user.address? 'Wallet Connected': 'Connect Wallet'}
-        </Button>
-        </Center>
-    )
+  return (
+    <Center>
+      <Button colorScheme={user.address ? 'purple' : 'green'} type='submit' className="connectButton" onClick={user.address ? undefined : async () => setUser({ address: await getAddress(true) })} >
+        {user.address ? user.address.slice(0, 7) : 'Connect'}
+      </Button>
+    </Center>
+  )
 }
