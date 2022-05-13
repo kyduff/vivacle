@@ -13,7 +13,7 @@ export default NextAuth({
       from: process.env.EMAIL_FROM,
     }),
   ],
-  secret: process.env.Next_Auth_Secret,
+  secret: process.env.NEXT_AUTH_SECRET,
   callbacks: {
     async session({ session, user }) {
       session.userid = user.id;
