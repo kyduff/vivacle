@@ -8,7 +8,7 @@ export const ConnectWalletButton: React.FC = () => {
 
   return (
     <Center>
-      <ConnectButton label="Connect" />
+      <ConnectButton label="Connect" accountStatus={"address"} chainStatus="icon" showBalance={false}/>
     </Center >
   )
 }
