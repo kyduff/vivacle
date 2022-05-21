@@ -1,5 +1,5 @@
-import { Button, Center, Image } from "@chakra-ui/react"
-import React, { useContext } from "react";
+import { Center } from "@chakra-ui/react"
+import React from "react";
 
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 

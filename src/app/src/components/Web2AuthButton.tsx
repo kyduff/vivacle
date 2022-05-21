@@ -1,7 +1,6 @@
-import { Button, Center, Image } from "@chakra-ui/react"
-import React, { useContext } from "react";
+import { Button, Center } from "@chakra-ui/react"
+import React from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { UserContext } from "../utils/UserContext";
 
 export const Web2AuthButton: React.FC = () => {
   const { data: session } = useSession()

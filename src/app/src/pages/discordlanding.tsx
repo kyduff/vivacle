@@ -51,7 +51,8 @@ export default function DiscordLanding() {
     (async () => {
       await handleTok();
     })();
-  }, [code, handleTok]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [code]);
 
   async function handleClaim() {
 

@@ -24,8 +24,6 @@ import { UserContext } from '../utils/UserContext';
 
 import { Container, Main, Footer } from '../components'
 import { useRouter } from 'next/router'
-import { AccoladeAPIDatum } from './accolades/[accolades]';
-import { ethers } from 'ethers';
 
 const Accolades = () => (
   <Container height="100vh">
@@ -186,7 +184,7 @@ function UserProfileEdit(): JSX.Element {
             <FormLabel>Select which of your accolades you would like to import</FormLabel>
             <CheckboxGroup colorScheme='green' defaultValue={['naruto', 'kakashi']}>
               <VStack spacing={[1, 5]} py={6}>
-                {signets[brand] != undefined ? tokens.length ? tokens.map((value, index: number) => (
+                {signets[brand] != undefined ? tokens.length ? tokens.map((value) => (
                   <Checkbox value={'pk_' + value.tokenId.toString()} id={value.tokenId.toString()} key={value.tokenId.toString()}>{value.name}</Checkbox>
                 )) : <p>Loading...</p> : <p>No tokens to claim</p>}
               </VStack>

@@ -15,7 +15,6 @@ export default async function DiscordAuth(req: NextApiRequest, res: NextApiRespo
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      // @ts-ignore
       body: new URLSearchParams({
         client_id: process.env.DISCORD_CLIENT_ID,
         client_secret: process.env.DISCORD_CLIENT_SECRET,
@@ -41,8 +40,8 @@ export default async function DiscordAuth(req: NextApiRequest, res: NextApiRespo
     console.log(servers);
     console.log(process.env.NEXT_PUBLIC_OXFORD_HACK_GUILD_ID)
 
-    // @ts-ignore
     servers.forEach(server => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       if (server.id == process.env.NEXT_PUBLIC_OXFORD_HACK_GUILD_ID!.toString()) {
         verified = true;
       }
