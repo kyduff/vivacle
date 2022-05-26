@@ -1,5 +1,5 @@
 import { createContext, useMemo, useState, useEffect, SetStateAction, Dispatch } from "react";
-import { getAddress } from "./metamask";
+import { useAccount } from "wagmi";
 
 interface User {
   address: string | undefined
@@ -11,29 +11,23 @@ interface UserContext {
 }
 
 export const UserContext = createContext<UserContext>({
-  user: {address: ''},
-  setUser: () => {}
+  user: { address: '' },
+  setUser: () => { }
 });
 
 export const UserContextProvider: React.FC = ({ children }) => {
 
-  const [user, setUser] = useState<User>({address: ''});
+  const [user, setUser] = useState<User>({ address: '' });
   const value = useMemo(() => ({ user, setUser }), [user, setUser]);
 
-  useEffect(() => {
-    if (user) return;
-    const setAddress = async () => {
-      setUser({ address: await getAddress(false) })
-    }
-    setAddress();
-  }, [user]);
+  const { data } = useAccount();
 
   useEffect(() => {
     const setAddress = async () => {
-      setUser({ address: await getAddress(false) })
+      setUser({ address: data?.address })
     }
     setAddress();
-  }, []);
+  }, [data]);
 
   return (
     <UserContext.Provider value={value}>

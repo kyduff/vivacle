@@ -33,8 +33,7 @@ export default async function FetchAccs(req: NextApiRequest, res: NextApiRespons
       let tokens = await getIdsAndTimestampsByEvents(address, contract);
 
       if (tokens === null) {
-        // @ts-ignore
-        console.error(`could not get accolades for ${signets[contractAddr]}`);
+        console.error(`could not get accolades for ${signets[contractAddress]}`);
         tokens = [];
       }
 
