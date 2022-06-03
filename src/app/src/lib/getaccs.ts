@@ -118,8 +118,8 @@ export async function getAllContractAccolades(contractAddress: string) {
 
 async function filterQueryResult(queryResult: ethers.Event[]) {
   const idsAndTimestamps = [];
-  for (const event of queryResult) {
 
+  const promises = queryResult.map(async event => {
     const ids = event.args.id !== undefined ? [event.args.id] : event.args.ids;
 
     const blockInfo = await event.getBlock();
@@ -131,7 +131,9 @@ async function filterQueryResult(queryResult: ethers.Event[]) {
       const idNum = Number(id._hex);
       idsAndTimestamps.push([idNum, timestamp]);
     }
-  }
+  })
+
+  await Promise.all(promises);
   return idsAndTimestamps;
 }
 
@@ -160,10 +162,12 @@ export async function getIdsAndTimestampsByEvents(address: string, contract: Con
     address
   );
 
+
   console.log(`address: ${contract.address}`);
 
   const batchQueryResult = await contract.queryFilter(batchTransferFilter);
   let batchIdsAndTimestamps = [];
+
 
   if (batchQueryResult.length > 0) {
     batchIdsAndTimestamps = await filterQueryResult(batchQueryResult);
@@ -177,8 +181,10 @@ export async function getIdsAndTimestampsByEvents(address: string, contract: Con
     null,
     address
   );
+
   const singleQueryResult = await contract.queryFilter(singleTransferFilter);
   let singleIdsAndTimestamps = [];
+
   if (singleQueryResult.length > 0) {
     singleIdsAndTimestamps = await filterQueryResult(singleQueryResult);
   }
@@ -189,13 +195,13 @@ export async function getIdsAndTimestampsByEvents(address: string, contract: Con
     singleIdsAndTimestamps
   );
 
-  const tokens = [];
-
-  for (const [id, timestamp] of allIdsAndTimestamps) {
+  const tokenPromises = allIdsAndTimestamps.map(async ([id, timestamp]) => {
     const metadata = await getMetadataFromId(id, contract);
     metadata.timestamp = timestamp;
-    tokens.push(metadata);
-  }
+    return metadata;
+  })
+  const tokens = await Promise.all(tokenPromises);
+
   return tokens;
 }
 

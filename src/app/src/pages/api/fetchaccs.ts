@@ -8,6 +8,11 @@ const { signets } = _signets
 const { abi } = _abi;
 const provider = new ethers.providers.JsonRpcProvider(process.env.RINKEBY_URL);
 
+interface TokenBalance {
+  contractAddress: string,
+  tokens: any[],
+}
+
 export default async function FetchAccs(req: NextApiRequest, res: NextApiResponse) {
 
   try {
@@ -16,29 +21,49 @@ export default async function FetchAccs(req: NextApiRequest, res: NextApiRespons
     const accolades = new Object();
 
     console.log(`fetching accolades for ${address}`)
-    console.log(`signets: ${signets}`)
+    console.log(`signets: ${JSON.stringify(signets, null, 2)}`)
 
     if (address === undefined) {
       return res.status(400).json({ error: "400: no address provided", accolades: {} });
     }
 
+    const startT = Date.now();
+    console.log(`time: ${startT}`);
 
-    for (const contractAddress in signets) {
+    const tokenPromises = Object.keys(signets).map(contractAddress => {
       const contract = new ethers.Contract(
         contractAddress,
         abi,
         provider,
       )
 
-      let tokens = await getIdsAndTimestampsByEvents(address, contract);
+      const promise = new Promise<TokenBalance>(async (resolve, reject) => {
 
-      if (tokens === null) {
-        console.error(`could not get accolades for ${signets[contractAddress]}`);
-        tokens = [];
-      }
+        let tokens = await getIdsAndTimestampsByEvents(address, contract);
 
+        if (tokens === null) {
+          console.error(`could not fetch tokens for ${contractAddress}`)
+          tokens = [];
+        }
+
+        resolve({
+          contractAddress,
+          tokens
+        })
+
+      })
+
+      return promise
+    })
+
+    const tokensArray = await Promise.all(tokenPromises);
+    tokensArray.forEach(addrTokens => {
+      const { contractAddress, tokens } = addrTokens;
       accolades[signets[contractAddress]] = tokens;
-    }
+    })
+
+    const endT = Date.now();
+    console.log(`elapsed time: ${endT - startT}`);
 
     res.status(200).json({ accolades });
 
