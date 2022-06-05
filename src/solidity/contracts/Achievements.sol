@@ -38,7 +38,7 @@ contract Achievements is ERC1155, Ownable, ERC1155Supply {
         uint256 id,
         uint256 amount,
         bytes memory data
-    ) public {
+    ) public onlyOwner {
         require(balanceOf(account, id) < 1, "Achievement already claimed");
         tokenToAddresses[id].push(account);
         _mint(account, id, amount, data);
@@ -50,7 +50,7 @@ contract Achievements is ERC1155, Ownable, ERC1155Supply {
         uint256[] memory ids,
         uint256[] memory amounts,
         bytes memory data
-    ) public {
+    ) public onlyOwner {
         for (uint256 i = 0; i < ids.length; i++) {
             require(balanceOf(to, i) < 1, "Achievement already claimed");
             tokenToAddresses[ids[i]].push(to);
