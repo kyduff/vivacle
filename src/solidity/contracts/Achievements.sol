@@ -36,24 +36,25 @@ contract Achievements is ERC1155, Ownable, ERC1155Supply {
     function mint(
         address account,
         uint256 id,
-        uint256 amount,
         bytes memory data
     ) public onlyOwner {
         require(balanceOf(account, id) < 1, "Achievement already claimed");
         tokenToAddresses[id].push(account);
-        _mint(account, id, amount, data);
+        _mint(account, id, 1, data);
     }
 
     // TO-DO: Verify that user is eligible to mint based on platform authenication
     function mintBatch(
         address to,
         uint256[] memory ids,
-        uint256[] memory amounts,
         bytes memory data
     ) public onlyOwner {
+        uint256[] memory amounts = new uint256[](ids.length);
+
         for (uint256 i = 0; i < ids.length; i++) {
             require(balanceOf(to, i) < 1, "Achievement already claimed");
             tokenToAddresses[ids[i]].push(to);
+            amounts[i] = 1;
         }
         _mintBatch(to, ids, amounts, data);
     }
