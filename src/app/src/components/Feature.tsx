@@ -1,6 +1,5 @@
 import {
   Container,
-  SimpleGrid,
   Image,
   Flex,
   Heading,
@@ -18,15 +17,15 @@ interface FeatureProps{
 export default function Feature(props: FeatureProps) {
   return (
     <>
-    <Container maxW={'5xl'} py={12} my={4}>
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-        <Stack spacing={4}>
+    <Container maxW={'6xl'} py={{ base: 4, md: 10 }} my={1}>
+      <div className="flex flex-col md:flex-row">
+        <Stack className="basis-1/2 mx-5 my-5 md:my-1">
           <Heading color={'red.500'}>{props.titleOne}</Heading>
           <Text color={'gray.500'} fontSize={'lg'}>
             {props.textOne}
           </Text>
         </Stack>
-        <Flex>
+        <Flex className="basis-1/2 mx-5 my-5 md:my-1">
           <Image
             rounded={'lg'}
             alt={'feature image'}
@@ -36,11 +35,11 @@ export default function Feature(props: FeatureProps) {
             objectFit={'cover'}
           />
         </Flex>
-      </SimpleGrid>
+      </div>
     </Container>
-    <Container maxW={'5xl'} py={12} my={4}>
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-        <Flex>
+    <Container maxW={'6xl'} py={{ base: 4, md: 20 }} my={1}>
+      <div className="flex flex-col-reverse md:flex-row">
+        <Flex  className="basis-1/2 mx-8 my-5 md:my-1">
           <Image
             rounded={'lg'}
             alt={'feature image'}
@@ -50,13 +49,13 @@ export default function Feature(props: FeatureProps) {
             objectFit={'cover'}
           />
         </Flex>
-        <Stack spacing={4}>
+        <Stack spacing={4} className="basis-1/2 mx-8 my-5 md:my-1">
           <Heading color={'blue.500'}>{props.titleTwo}</Heading>
           <Text color={'gray.500'} fontSize={'lg'}>
             {props.textTwo}
           </Text>
         </Stack>
-      </SimpleGrid>
+      </div>
     </Container>
     </>
   );

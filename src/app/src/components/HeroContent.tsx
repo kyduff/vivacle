@@ -14,17 +14,17 @@ export default function HeroContent({ title, description }: { title: string, des
           as={Box}
           textAlign={'center'}
           spacing={{ base: 8, md: 14 }}
-          py={{ base: 12, md: 24 }}>
+          py={{ base: 12, md: 12 }}>
           <Heading
             fontWeight={600}
-            fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
+            fontSize={'5xl'}
             lineHeight={'110%'}>
             Welcome to
              <Text as={'span'} color={'green.400'}>
               {" " + title}
              </Text>
           </Heading>
-          <Text color={'gray.500'} fontSize="1vw">
+          <Text color={'gray.500'} fontSize={"lg"}>
             {description}
           </Text>
         </Stack>
