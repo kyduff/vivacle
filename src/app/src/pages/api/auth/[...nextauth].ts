@@ -1,23 +1,28 @@
 import NextAuth from "next-auth"
 import EmailProvider from 'next-auth/providers/email';
+import { SpotifyProvider } from "@/lib/brands/spotify";
+import { GoogleProvider } from "@/lib/brands/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { PrismaClient } from "@prisma/client"
+import { JWT } from "next-auth/jwt";
 
 const prisma = new PrismaClient()
 
 export default NextAuth({
-  adapter: PrismaAdapter(prisma),
+  // adapter: PrismaAdapter(prisma),
   providers: [
-    EmailProvider({
-      server: process.env.EMAIL_SERVER,
-      from: process.env.EMAIL_FROM,
-    }),
+    SpotifyProvider,
+    GoogleProvider,
   ],
   secret: process.env.NEXT_AUTH_SECRET,
   callbacks: {
     async session({ session, user }) {
-      session.userid = user.id;
+      if (user) session.name = user.name;
       return session;
+    },
+    async jwt({ token, account }) {
+      if (account) token.accessToken = account.access_token;
+      return token;
     }
   }
 })
