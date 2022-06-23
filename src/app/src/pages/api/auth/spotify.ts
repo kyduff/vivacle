@@ -7,7 +7,6 @@ const secret = process.env.NEXT_AUTH_SECRET
 export default async function Spotify(req: NextApiRequest, res: NextApiResponse) {
   const token = await getToken({ req, secret });
   console.log(token.accessToken);
-  // @ts-ignore
   console.log(await ffilter(token.accessToken));
   res.send(200);
 }

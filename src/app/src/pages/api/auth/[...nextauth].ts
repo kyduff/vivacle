@@ -4,7 +4,6 @@ import { SpotifyProvider } from "@/lib/brands/spotify";
 import { GoogleProvider } from "@/lib/brands/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { PrismaClient } from "@prisma/client"
-import { JWT } from "next-auth/jwt";
 
 const prisma = new PrismaClient()
 
