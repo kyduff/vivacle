@@ -1,0 +1,41 @@
+{
+  "brand": "strava",
+  "accolades": [
+    {
+      "id": 0,
+      "name": "\"Nike!\"",
+      "description": "Run a marathon - 26.2 miles!",
+      "image_url": "https://cdn.discordapp.com/attachments/945665299938697260/947373241926823947/marathon.png"
+    },
+    {
+      "id": 1,
+      "name": "Half Centurion",
+      "description": "Earn a 50-day running streak.",
+      "image_url": "https://cdn.discordapp.com/attachments/945665299938697260/947373241293496370/halfcent.png"
+    },
+    {
+      "id": 2,
+      "name": "International Traveler",
+      "description": "Log a workout in two different countries.",
+      "image_url": "https://cdn.discordapp.com/attachments/945665299938697260/947373241708707901/international.png"
+    },
+    {
+      "id": 3,
+      "name": "Double Digits",
+      "description": "Run at least 10 miles to earn this award.",
+      "image_url": "https://cdn.discordapp.com/attachments/945665299938697260/947373241029263450/doubledigits.png"
+    },
+    {
+      "id": 4,
+      "name": "Half Marathon",
+      "description": "13.1 miles in the books.",
+      "image_url": "https://cdn.discordapp.com/attachments/945665299938697260/947373241515774012/halfmarathon.png"
+    },
+    {
+      "id": 5,
+      "name": "Sub Seven",
+      "description": "Run a mile in under 7 minutes.",
+      "image_url": "https://cdn.discordapp.com/attachments/945665299938697260/947373242304323654/subseven.png"
+    }
+  ]
+}

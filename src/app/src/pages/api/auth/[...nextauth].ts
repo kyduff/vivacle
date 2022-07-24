@@ -1,27 +1,29 @@
-import NextAuth from "next-auth"
-import EmailProvider from 'next-auth/providers/email';
-import { SpotifyProvider } from "@/lib/brands/spotify";
-import { GoogleProvider } from "@/lib/brands/google";
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import { PrismaClient } from "@prisma/client"
-
-const prisma = new PrismaClient()
+import NextAuth from 'next-auth'
+import { SpotifyProvider } from '@/lib/providers/spotify'
+import { GoogleProvider } from '@/lib/providers/google'
+import { StravaProvider } from '@/lib/providers/strava'
 
 export default NextAuth({
-  // adapter: PrismaAdapter(prisma),
-  providers: [
-    SpotifyProvider,
-    GoogleProvider,
-  ],
+  providers: [SpotifyProvider, GoogleProvider, StravaProvider],
   secret: process.env.NEXT_AUTH_SECRET,
   callbacks: {
-    async session({ session, user }) {
-      if (user) session.name = user.name;
-      return session;
-    },
     async jwt({ token, account }) {
-      if (account) token.accessToken = account.access_token;
-      return token;
-    }
-  }
+      if (account) {
+        console.log(
+          `[jwt callback] Storing account.provider (${account.provider}) and account.access_token (${account.access_token}) on token`
+        )
+        // Persist the OAuth access_token to the token right after signin
+        token.accessToken = account.access_token
+        token.provider = account.provider
+      }
+      return token
+    },
+    async session({ session, token }) {
+      // Send properties to the client, like an access_token from a provider.
+      session.accessToken = token.accessToken
+      session.provider = token.provider
+      // console.log("session: ", session);
+      return session
+    },
+  },
 })

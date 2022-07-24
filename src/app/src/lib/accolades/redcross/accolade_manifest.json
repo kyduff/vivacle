@@ -1,0 +1,41 @@
+{
+  "brand": "redcross",
+  "accolades": [
+    {
+      "id": 0,
+      "name": "First Timer",
+      "description": "Congrats on your first donation!",
+      "image_url": "https://cdn.discordapp.com/attachments/947392792697667604/947392876638253056/first.png"
+    },
+    {
+      "id": 1,
+      "name": "Hat Trick",
+      "description": "Third time's the charm!",
+      "image_url": "https://cdn.discordapp.com/attachments/947392792697667604/947392877305135104/hattrick.png"
+    },
+    {
+      "id": 2,
+      "name": "Half Gallon",
+      "description": "You're halfway to your first gallon!",
+      "image_url": "https://cdn.discordapp.com/attachments/947392792697667604/947392877061881887/halfgallon.png"
+    },
+    {
+      "id": 3,
+      "name": "One Gallon",
+      "description": "You've reached the one gallon milestone - Congrats!",
+      "image_url": "https://cdn.discordapp.com/attachments/947392792697667604/947392876839591996/gallon.png"
+    },
+    {
+      "id": 4,
+      "name": "Winter Holiday",
+      "description": "Thank you for giving the perfect gift - the gift of life!",
+      "image_url": "https://cdn.discordapp.com/attachments/947392792697667604/947392877770727424/winter.png"
+    },
+    {
+      "id": 5,
+      "name": "Valentine's Day",
+      "description": "Love is in the air - celebrate your Valentine by donating and earn this badge. Donate Feb 11 - Feb 17.",
+      "image_url": "https://cdn.discordapp.com/attachments/947392792697667604/947392877510668318/valentine.png"
+    }
+  ]
+}

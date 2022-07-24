@@ -1,0 +1,35 @@
+{
+  "brand": "spotify",
+  "accolades": [
+    {
+      "id": "spotify0",
+      "name": "Kayne West Fan",
+      "description": "Kanye is one of your top artists! You must love Yeezy almost as much as he loves himself.",
+      "image_url": "https://raw.githubusercontent.com/mbiss10/oxhack22/main/spotify_achievement_images/kanye.png",
+      "type": "topArtists",
+      "conditions": {
+        "topArtistId": ""
+      }
+    },
+    {
+      "id": "spotify1",
+      "name": "TSwift Fan",
+      "description": "Lol",
+      "image_url": "",
+      "type": "topArtists",
+      "conditions": {
+        "topArtistId": ""
+      }
+    },
+    {
+      "id": "spotify2",
+      "name": "Greta Van Fleet Fan",
+      "description": "Rock on.",
+      "image_url": "",
+      "type": "topArtists",
+      "conditions": {
+        "topArtistId": ""
+      }
+    }
+  ]
+}

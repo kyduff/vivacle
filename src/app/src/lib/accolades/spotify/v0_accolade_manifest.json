@@ -1,0 +1,41 @@
+{
+  "brand": "spotify",
+  "accolades": [
+    {
+      "id": 0,
+      "name": "Kayne West Top 5% Listener",
+      "description": "You were in the top 5% of users who listened to Kanye West (by duration)! You must love Yeezy almost as much as he loves himself.",
+      "image_url": "https://raw.githubusercontent.com/mbiss10/oxhack22/main/spotify_achievement_images/kanye.png"
+    },
+    {
+      "id": 1,
+      "name": "Lex Fridman Podcast Superfan — 2021",
+      "description": "The Lex Fridman Podcast was your most listened-to podcast this year!",
+      "image_url": "https://raw.githubusercontent.com/mbiss10/oxhack22/main/spotify_achievement_images/lex.png"
+    },
+    {
+      "id": 2,
+      "name": "House Music Lover — 2021",
+      "description": "Your top music genre for 2021 was House!",
+      "image_url": "https://raw.githubusercontent.com/mbiss10/oxhack22/main/spotify_achievement_images/house.png"
+    },
+    {
+      "id": 3,
+      "name": "Tastemaker",
+      "description": "You created a playlist that amassed over 20 followers. You must have good taste!",
+      "image_url": "https://raw.githubusercontent.com/mbiss10/oxhack22/main/spotify_achievement_images/taste.png"
+    },
+    {
+      "id": 4,
+      "name": "Eclectic Ears",
+      "description": "You listened to songs from 15 different genres this year!",
+      "image_url": "https://raw.githubusercontent.com/mbiss10/oxhack22/main/spotify_achievement_images/ears.png"
+    },
+    {
+      "id": 5,
+      "name": "In Your Feels",
+      "description": "You listened to All Too Well by Taylor Swift ten times in a row. Who hurt you?",
+      "image_url": "https://raw.githubusercontent.com/mbiss10/oxhack22/main/spotify_achievement_images/feels.png"
+    }
+  ]
+}

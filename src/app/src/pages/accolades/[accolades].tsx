@@ -5,7 +5,7 @@ import {
   WrapItem,
   Heading,
   VStack,
-  Spinner
+  Spinner,
 } from '@chakra-ui/react'
 
 import { Container, Main, Footer, AccoladeCard } from '../../components'
@@ -24,18 +24,17 @@ export interface AccoladeAPIDatum {
 
 // const Accolades = ({ accolades }: { accolades: AccoladeAPIResponse }) => {
 const Accolades = () => {
+  const router = useRouter()
 
-  const router = useRouter();
+  const [accolades1, setAccolades1] = useState<AccoladeAPIResponse>({})
+  const [loaded, setLoaded] = useState<boolean>(false)
 
-  const [accolades1, setAccolades1] = useState<AccoladeAPIResponse>({});
-  const [loaded, setLoaded] = useState<boolean>(false);
-
-  const { accolades: address } = router.query;
+  const { accolades: address } = router.query
 
   useEffect(() => {
     console.log(`address ${address}`)
     if (address === undefined) {
-      return;
+      return
     }
 
     async function fetchData() {
@@ -44,17 +43,18 @@ const Accolades = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ address })
+        body: JSON.stringify({ address }),
       })
 
-      res.json()
+      res
+        .json()
         .then(({ accolades }) => {
           setAccolades1(accolades)
-          setLoaded(true);
+          setLoaded(true)
         })
         .catch(console.error)
     }
-    fetchData();
+    fetchData()
   }, [address])
 
   console.log(loaded)
@@ -63,37 +63,41 @@ const Accolades = () => {
     <Container height="100vh">
       <Head>
         <title>My Accolades </title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/vivacle_favicon.ico" />
       </Head>
       <Heading>My Accolades</Heading>
       <Main>
         {/* <Integrations/> */}
         {!loaded ? (
           <VStack>
-            <Text fontSize='lg'>Loading</Text>
+            <Text fontSize="lg">Loading</Text>
             <br />
-            <Spinner size='xl' />
+            <Spinner size="xl" />
           </VStack>
         ) : (
-          <Wrap spacing={{ base: 5, lg: 8 }} justify='center'>
-            {["spotify", "oxhack", "redcross", "strava"].map(data => accolades1[data].map(
-              (datum: AccoladeAPIDatum, idx: number) => <WrapItem key={idx} >
-                <AccoladeCard
-                  title={datum.name}
-                  companyName={data}
-                  imageUrl={datum.image_url}
-                  description={datum.description}
-                  categories={[]}
-                  companyLogoUrl={''} /></WrapItem>))}
+          <Wrap spacing={{ base: 5, lg: 8 }} justify="center">
+            {['spotify', 'oxhack', 'redcross', 'strava'].map((data) =>
+              accolades1[data].map((datum: AccoladeAPIDatum, idx: number) => (
+                <WrapItem key={idx}>
+                  <AccoladeCard
+                    title={datum.name}
+                    companyName={data}
+                    imageUrl={datum.image_url}
+                    description={datum.description}
+                    categories={[]}
+                    companyLogoUrl={''}
+                  />
+                </WrapItem>
+              ))
+            )}
           </Wrap>
-        )
-        }
+        )}
       </Main>
 
       <Footer>
         <Text>Courtesy of the best OxHack22 Team ❤️</Text>
       </Footer>
-    </Container >
+    </Container>
   )
 }
 

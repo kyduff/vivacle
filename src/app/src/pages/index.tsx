@@ -7,14 +7,14 @@ const Index = () => (
   <Container height="100vh">
     <Head>
       <title>Vivacle</title>
-      <meta name="description" content="Own your life" />
-      <link rel="icon" href="/favicon.ico" />
+      <meta
+        name="description"
+        content="Real-world achievements. Tokenize your accomplishments and bootstrap a vibrant Web3 identity."
+      />
+      <link rel="icon" href="/vivacle_favicon.ico" />
     </Head>
     <Hero />
-
-    <Footer>
-      <Text>Made in Oxford ❤️</Text>
-    </Footer>
+    <Footer />
   </Container>
 )
 
